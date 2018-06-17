@@ -52,7 +52,6 @@ public class Terrain {
       Terrain t;
       if (!dictionary.TryGetValue(this.x + "," + this.y, out t))
          dictionary.Add(this.x + "," + this.y, this);
-      else return;
       this.setColorRed();
       for (int aux = 0; aux < this.neighboursCount; aux++) {
          if (this.neighbours[aux].movePointsRequired != -1) {
@@ -83,11 +82,11 @@ public class Terrain {
       neighbour.pushNeighbour(this);
    }
 
-   private void setColorRed() {
+   public void setColorRed() {
       renderer.material.color = Color.red;
    }
 
-   private void setColorWhite() {
+   public void setColorWhite() {
       renderer.material.color = Color.white;
    }
 }
