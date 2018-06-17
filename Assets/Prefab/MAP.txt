@@ -1,0 +1,13 @@
+9, 9,
+p, p, p, p, p, p, p, p, p,
+p, p, p, p, m, p, p, p, p,
+p, p, p, m, s, m, p, p, p,
+p, p, p, m, p, m, p, p, p,
+p, p, p, m, p, p, p, p, p,
+p, p, p, m, p, m, p, p, p,
+p, p, p, p, p, p, p, p, p,
+p, p, p, p, p, p, p, p, p,
+p, p, p, p, p, p, p, p, p,
+
+
+s, 4, 4
