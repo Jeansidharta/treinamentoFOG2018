@@ -1,13 +1,12 @@
-9, 9,
-p, p, p, p, p, p, p, p, p,
-p, p, p, p, m, p, p, p, p,
-p, p, p, m, s, m, p, p, p,
-p, p, p, m, p, m, p, p, p,
-p, p, p, m, p, p, p, p, p,
-p, p, p, m, p, m, p, p, p,
-p, p, p, p, p, p, p, p, p,
-p, p, p, p, p, p, p, p, p,
-p, p, p, p, p, p, p, p, p,
+7, 64,
+p, p, p, p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, r, r, r, r, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p,
+p, p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, r, r, r, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p,
+p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, r, r, r, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p,
+p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, r, r, r, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p,
+p, p, p, p, p, p, p, f, f, f, f, f, f, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, r, r, r, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p, p,
+p, p, p, p, p, p, p, p, f, f, f, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, r, r, r, p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p, p, p,
+p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, r, r, r, r, p, p, p, p, p, p, p, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, p, p, p, p, p, p, p,
 
 
-s, 4, 4
+s, 1, 4, 4,
+s, 2, 4, 5

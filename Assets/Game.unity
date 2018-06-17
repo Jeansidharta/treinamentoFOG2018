@@ -235,9 +235,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plainsPrefab: {fileID: 1788608119182008, guid: 8078dc0f251183d4f8c7484f0a0e2548,
     type: 2}
-  swampPrefab: {fileID: 1883868890574134, guid: 3389fdb2c3c45f543baca5c3ec238da5,
+  forestPrefab: {fileID: 1883868890574134, guid: 3389fdb2c3c45f543baca5c3ec238da5,
     type: 2}
-  MountainPrefab: {fileID: 1255352225024846, guid: c2c297f848619514aa06f52868ab39a7,
+  mountainPrefab: {fileID: 1255352225024846, guid: c2c297f848619514aa06f52868ab39a7,
+    type: 2}
+  riverPrefab: {fileID: 1244116536971336, guid: 0cb3635359092c548bbdf0ada8dd239d,
     type: 2}
   soldierPrefab: {fileID: 1067884426614184, guid: 6f2b3a43045124a43be506956cfe0b09,
     type: 2}

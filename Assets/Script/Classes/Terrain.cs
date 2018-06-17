@@ -20,7 +20,7 @@ public class Terrain {
       this.x = x;
       this.y = y;
       spriteInstance = MonoBehaviour.Instantiate(prefab);
-      spriteInstance.transform.position = new Vector3(x + (y % 2 == 0 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
+      spriteInstance.transform.position = new Vector3(x + (y % 2 == 1 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
       renderer = spriteInstance.GetComponent<Renderer>();
       this.spriteInstance.GetComponent<cellControl>().cell = this;
       this.movePointsRequired = walkSpeed;
@@ -47,28 +47,39 @@ public class Terrain {
          //this.creature.mouseUp();
    }
 
-   private void expandRecursive(int level, Dictionary<string, Terrain> dictionary) {
-      if (level < 0) return;
-      Terrain t;
-      if (!dictionary.TryGetValue(this.x + "," + this.y, out t))
-         dictionary.Add(this.x + "," + this.y, this);
+   private void expandRecursive(int dist, int maxDist, Dictionary<string, Pair<int, Terrain>> dictionary) {
+      if (dist >= maxDist) return;
+
+      Pair<int, Terrain> t;
+      string dictKey = this.x + "," + this.y;
+      Debug.Log(dictKey);
+      if (!dictionary.TryGetValue(dictKey, out t))
+         dictionary.Add(dictKey, new Pair<int, Terrain>(dist, this));
+      else {
+         if (t.first <= dist) return;
+         else {
+            dictionary.Remove(dictKey);
+            dictionary.Add(dictKey, new Pair<int, Terrain>(dist, this));
+         }
+      }
+
       this.setColorRed();
       for (int aux = 0; aux < this.neighboursCount; aux++) {
          if (this.neighbours[aux].movePointsRequired != -1) {
-            neighbours[aux].expandRecursive(level - movePointsRequired, dictionary);
+            neighbours[aux].expandRecursive(dist + movePointsRequired, maxDist, dictionary);
          }
       }
    }
 
-   public Dictionary<string, Terrain> expand(int level) {
-      Dictionary<string, Terrain> dictionary = new Dictionary<string, Terrain>();
-      this.expandRecursive(level, dictionary);
+   public Dictionary<string, Pair<int, Terrain>> expand(int maxDist) {
+      var dictionary = new Dictionary<string, Pair<int, Terrain>>();
+      this.expandRecursive(0, maxDist, dictionary);
       return dictionary;
    }
 
-   public static void collapse(Dictionary<string, Terrain> dict) {
+   public static void collapse(Dictionary<string, Pair<int, Terrain>> dict) {
       foreach(var item in dict){
-         item.Value.setColorWhite();
+         item.Value.second.setColorWhite();
       }
    }
 

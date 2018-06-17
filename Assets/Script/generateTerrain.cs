@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class generateTerrain : MonoBehaviour {
-   const int squareHeight = 25;
-   const int squareWidth = 50;
+   const int squareHeight = 40;
+   const int squareWidth = 64;
 
    public GameObject plainsPrefab;
-   public GameObject swampPrefab;
-   public GameObject MountainPrefab;
+   public GameObject forestPrefab;
+   public GameObject mountainPrefab;
+   public GameObject riverPrefab;
    public GameObject soldierPrefab;
    public TextAsset terrainFile;
 
@@ -28,16 +29,18 @@ public class generateTerrain : MonoBehaviour {
             int tokenPos = height * terrainWidth + width + 2;
             if (tokens[tokenPos] == "p") // planice
                allTiles[height][width] = new Terrain(plainsPrefab, width, height, 1);
-            else if (tokens[tokenPos] == "s") // pantano
-               allTiles[height][width] = new Terrain(swampPrefab, width, height, 2);
+            else if (tokens[tokenPos] == "f") // floresta
+               allTiles[height][width] = new Terrain(forestPrefab, width, height, 2);
             else if (tokens[tokenPos] == "m") // montanha, impassavel
-               allTiles[height][width] = new Terrain(MountainPrefab, width, height, -1);
+               allTiles[height][width] = new Terrain(mountainPrefab, width, height, -1);
+            else if (tokens[tokenPos] == "r") // 
+               allTiles[height][width] = new Terrain(riverPrefab, width, height, -1);
             else Debug.Log(tokens[tokenPos]);
          }
       }
-      for(int aux = terrainHeight * terrainWidth + 2; aux < tokens.Length; aux += 3) {
+      for(int aux = terrainHeight * terrainWidth + 2; aux < tokens.Length; aux += 4) {
          if(tokens[aux] == "s") // soldado, unidade unica
-            new Creature(soldierPrefab, int.Parse(tokens[aux + 2]), int.Parse(tokens[aux + 1]), 3, 30);
+            new Creature(soldierPrefab, int.Parse(tokens[aux + 3]), int.Parse(tokens[aux + 2]), 3, int.Parse(tokens[aux + 1]));
       }
    }
 

@@ -62,6 +62,7 @@
     <Compile Include="Assets\Script\cameraControl.cs" />
     <Compile Include="Assets\Script\cellControl.cs" />
     <Compile Include="Assets\Script\Classes\Creature.cs" />
+    <Compile Include="Assets\Script\Classes\Pair.cs" />
     <Compile Include="Assets\Script\Classes\Terrain.cs" />
     <Compile Include="Assets\Script\gameController.cs" />
     <Compile Include="Assets\Script\generateTerrain.cs" />
