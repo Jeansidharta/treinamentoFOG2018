@@ -19,7 +19,7 @@ public static class gameController {
 
    public static void clickTerrain(Terrain terrain) {
       if (creatureClicked == null) {
-         if (terrain.creature != null) {
+         if (terrain.creature != null && terrain.creature.team == turn) {
             selectCreature(terrain.creature);
          }
       }
@@ -36,8 +36,16 @@ public static class gameController {
                selectCreature(creatureClicked);
             }
          }
-         else if (terrain.creature != null) selectCreature(terrain.creature);
+         else if (terrain.creature != null && terrain.creature.team == turn)
+            selectCreature(terrain.creature);
          else selectCreature(null);
+      }
+   }
+
+   public static void nextTurn() {
+      turn = 1 - turn;
+      foreach (Creature creature in Creature.allCreatures) {
+         creature.newTurn();
       }
    }
 }

@@ -14,7 +14,7 @@ public class Creature {
    Terrain currentTile;
    GameObject spriteInstance;
 
-   static int totalCreatures;
+   public static List<Creature> allCreatures = new List<Creature>();
 
    public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1) {
       this.x = x;
@@ -31,6 +31,7 @@ public class Creature {
       spriteInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
       spriteInstance.transform.position = this.currentTile.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
       this.newTurn();
+      allCreatures.Add(this);
    }
 
    public void newTurn() {

@@ -10,6 +10,7 @@ public class generateTerrain : MonoBehaviour {
    public GameObject forestPrefab;
    public GameObject mountainPrefab;
    public GameObject riverPrefab;
+   public GameObject fortressPrefab;
    public GameObject soldierPrefab;
    public TextAsset terrainFile;
 
@@ -33,14 +34,16 @@ public class generateTerrain : MonoBehaviour {
                allTiles[height][width] = new Terrain(forestPrefab, width, height, 2);
             else if (tokens[tokenPos] == "m") // montanha, impassavel
                allTiles[height][width] = new Terrain(mountainPrefab, width, height, -1);
-            else if (tokens[tokenPos] == "r") // 
-               allTiles[height][width] = new Terrain(riverPrefab, width, height, -1);
+            else if (tokens[tokenPos] == "r") // rio
+               allTiles[height][width] = new Terrain(riverPrefab, width, height, 3);
+            else if (tokens[tokenPos] == "t") // fortaleza
+               allTiles[height][width] = new Terrain(fortressPrefab, width, height, 1);
             else Debug.Log(tokens[tokenPos]);
          }
       }
       for(int aux = terrainHeight * terrainWidth + 2; aux < tokens.Length; aux += 4) {
          if(tokens[aux] == "s") // soldado, unidade unica
-            new Creature(soldierPrefab, int.Parse(tokens[aux + 3]), int.Parse(tokens[aux + 2]), 3, int.Parse(tokens[aux + 1]));
+            new Creature(soldierPrefab, int.Parse(tokens[aux + 3]), int.Parse(tokens[aux + 2]), 8, int.Parse(tokens[aux + 1]));
       }
    }
 

@@ -20,7 +20,7 @@ public class Terrain {
       this.x = x;
       this.y = y;
       spriteInstance = MonoBehaviour.Instantiate(prefab);
-      spriteInstance.transform.position = new Vector3(x + (y % 2 == 1 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
+      spriteInstance.transform.position = new Vector3(x + (y % 2 == 0 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
       renderer = spriteInstance.GetComponent<Renderer>();
       this.spriteInstance.GetComponent<cellControl>().cell = this;
       this.movePointsRequired = walkSpeed;
@@ -48,11 +48,10 @@ public class Terrain {
    }
 
    private void expandRecursive(int dist, int maxDist, Dictionary<string, Pair<int, Terrain>> dictionary) {
-      if (dist >= maxDist) return;
+      if (dist > maxDist) return;
 
       Pair<int, Terrain> t;
       string dictKey = this.x + "," + this.y;
-      Debug.Log(dictKey);
       if (!dictionary.TryGetValue(dictKey, out t))
          dictionary.Add(dictKey, new Pair<int, Terrain>(dist, this));
       else {
@@ -99,5 +98,11 @@ public class Terrain {
 
    public void setColorWhite() {
       renderer.material.color = Color.white;
+   }
+
+   public void setNeighboursRed() {
+      for (int aux = 0; aux < this.neighboursCount; aux++) {
+         this.neighbours[aux].setColorRed();
+      }
    }
 }
