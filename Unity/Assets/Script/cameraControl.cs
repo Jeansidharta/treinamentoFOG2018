@@ -25,4 +25,5 @@ public class cameraControl : MonoBehaviour {
       float y = transform.position.y;
       transform.position = new Vector3(x, y, scrollAmmount);
    }
+
 }
