@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fortress : Terrain {
    const int _walkSpeed = 1;
-   public Fortress(GameObject prefab, int x, int y) : base(prefab, x, y, _walkSpeed) {
+   public static GameObject prefab;
+
+   public int defenseBonus = 50;
+   public Fortress(int x, int y) : base(prefab, x, y, _walkSpeed) {
    }
 }

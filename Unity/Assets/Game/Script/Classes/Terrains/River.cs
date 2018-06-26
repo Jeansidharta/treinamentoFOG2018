@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class River : Terrain {
    const int _walkSpeed = 3;
-   public River(GameObject prefab, int x, int y) : base(prefab, x, y, _walkSpeed) {
+   public static GameObject prefab;
+   public River(int x, int y) : base(prefab, x, y, _walkSpeed) {
    }
 }
