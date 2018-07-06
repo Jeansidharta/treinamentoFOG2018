@@ -6,18 +6,17 @@ using UnityEngine.EventSystems;
 
 public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
-    public string texto;
     public Text obTexto;
     public Text nomeSkill;
     public GameObject descricaoOb;
 
     private bool Display;
 
-    void Start()
+    public void Setup(string strNome, string strDescricao)
     {
         obTexto.color = Color.clear;
-        nomeSkill.text = "Toque Amaldiçoado";
+        nomeSkill.text = strDescricao;
+        obTexto.text = strDescricao;
         nomeSkill.color = Color.black;
     }
 
@@ -36,7 +35,6 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Display)
         {
             descricaoOb.SetActive(true);
-            obTexto.text = texto;
             obTexto.color = Color.white;
         }
         else
