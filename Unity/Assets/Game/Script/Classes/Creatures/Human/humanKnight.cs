@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HumanKnight : Creature {
    public static GameObject prefab;
-   
+
+   const string _name = "Knight";
+   const string _teamName = "Humans";
    const int _maxHealth = 250;
    const int _maxActionPoints = 5;
    const int _baseDodge = 10;
@@ -18,7 +20,7 @@ public class HumanKnight : Creature {
    private int assaultCD = 0;
    private bool hasTerrainSpeedup = false;
 
-   public HumanKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   public HumanKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
       if (terrain is Plains) hasTerrainSpeedup = true;
    }
 

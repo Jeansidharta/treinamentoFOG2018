@@ -5,6 +5,8 @@ using UnityEngine;
 public class HumanArcher : Creature {
    public static GameObject prefab;
 
+   const string _name = "Archer";
+   const string _teamName = "Humans";
    const int _maxHealth = 300;
    const int _maxActionPoints = 3;
    const int _baseDodge = 10;
@@ -21,7 +23,7 @@ public class HumanArcher : Creature {
    private int trapCooldown = 0;
    private List<Creature> enemiesInTheBorder;
 
-   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
       enemiesInTheBorder = new List<Creature>();
    }
 

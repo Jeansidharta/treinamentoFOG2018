@@ -5,6 +5,8 @@ using UnityEngine;
 public class HumanSiege : Creature {
    public static GameObject prefab;
 
+   const string _name = " Siege";
+   const string _teamName = "Humans";
    const int _maxHealth = 300;
    const int _maxActionPoints = 3;
    const int _baseDodge = 0;
@@ -26,7 +28,7 @@ public class HumanSiege : Creature {
    private int invertCD = 0;
    private bool isInverted = false;
 
-   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
    }
 
    public override void attack(Creature victim) {

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HumanSoldier : Creature {
    public static GameObject prefab;
-   
+
+   const string _name = "Soldier";
+   const string _teamName = "Humans";
    const int _maxHealth = 400;
    const int _maxActionPoints = 3;
    const int _baseDodge = 10;
@@ -19,7 +21,7 @@ public class HumanSoldier : Creature {
    private bool areShieldsRaised = false;
    private int raiseShieldsCooldown = 0;
 
-   public HumanSoldier(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   public HumanSoldier(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
 
    }
 

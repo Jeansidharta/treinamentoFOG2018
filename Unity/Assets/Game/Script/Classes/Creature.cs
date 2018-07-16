@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Creature {
+   public string name;
+   public string teamName;
    public int health;
    public int maxHealth;
    public int attackDamage;
@@ -26,7 +28,7 @@ public abstract class Creature {
 
    public static List<Creature> allCreatures = new List<Creature>();
 
-   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10) {
+   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10, string name = null, string teamName = null) {
       this.x = x;
       this.y = y;
       this.team = team;
@@ -38,6 +40,8 @@ public abstract class Creature {
       this.defenseHeal = defenseHeal;
       this.defenseResistance = defenseResistance;
       this.dodge = dodge;
+      this.name = name;
+      this.teamName = teamName;
 
       this.terrain = Terrain.allTiles[y][x];
       this.terrain.creature = this;

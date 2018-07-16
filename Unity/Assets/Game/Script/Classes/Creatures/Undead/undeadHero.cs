@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class UndeadHero : Creature {
    public static GameObject prefab;
-   
+
+   const string _name = "(Hero)";
+   const string _teamName = "Undeads";
    const int _maxHealth = 900;
    const int _maxActionPoints = 5;
    const int _baseDodge = 15;
@@ -13,7 +15,7 @@ public class UndeadHero : Creature {
    const int _attackDamage = 75;
    const int _attackRange = 2;
 
-   public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
 
    }
 }

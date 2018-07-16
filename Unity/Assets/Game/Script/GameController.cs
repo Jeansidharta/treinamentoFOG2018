@@ -1,9 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-   static Creature creatureClicked = null;
+
+    /*-------GUI Scripting----------*/
+    [SerializeField] Text text_name;
+    [SerializeField] Text text_team;
+    [SerializeField] Text text_HP;
+    [SerializeField] Text text_AP;
+    [SerializeField] Text text_DE;
+    [SerializeField] Text text_AT;
+    [SerializeField] Text text_EV;
+    [SerializeField] Image unitImgObject;
+    [SerializeField] Sprite blankImg;
+    [SerializeField] Sprite Harcher;
+    [SerializeField] Sprite HHero;
+    [SerializeField] Sprite HKnight;
+    [SerializeField] Sprite HSiege;
+    [SerializeField] Sprite HSoldier;
+    /*-----------------------------*/
+
+    static Creature creatureClicked = null;
    static Surroundings possibilities = null;
 
    static bool trapPreview = false;
@@ -100,5 +119,59 @@ public class GameController : MonoBehaviour {
             selectCreature(creatureClicked);
          }
       }
-   }
+
+      /*-------GUI Scripting----------*/
+        if (creatureClicked != null)
+        {
+            //Assigning Selected creature's value to diplay on GUI
+            text_name.text = "Name: " + creatureClicked.name;
+            text_team.text = "Team: " + creatureClicked.teamName;
+            text_HP.text = "HP: " + creatureClicked.health.ToString();
+            text_AP.text = "AP: " + creatureClicked.actionPoints.ToString();
+            text_DE.text = "DE: " + creatureClicked.defenseResistance.ToString();
+            text_AT.text = "AT: " + creatureClicked.attackDamage.ToString();
+            //text_EV.text = "EV: " + creatureClicked.evasion.ToString();
+            
+            //Assigning Selected creature's image file to display on GUI
+            if(creatureClicked is HumanArcher)
+            {
+                unitImgObject.GetComponent<Image>().sprite = Harcher;
+            }
+            else if (creatureClicked is HumanHero)
+            {
+                unitImgObject.GetComponent<Image>().sprite = HHero;
+            }
+            else if (creatureClicked is HumanKnight)
+            {
+                unitImgObject.GetComponent<Image>().sprite = HKnight;
+            }
+            else if (creatureClicked is HumanSiege)
+            {
+                unitImgObject.GetComponent<Image>().sprite = HSiege;
+            }
+            else if (creatureClicked is HumanSoldier)
+            {
+                unitImgObject.GetComponent<Image>().sprite = HSoldier;
+            }
+        }
+        else
+        {
+            text_name.text = "Name: ";
+            text_team.text = "Team: ";
+            text_HP.text = "HP: ";
+            text_AP.text = "AP: ";
+            text_DE.text = "DE: ";
+            text_AT.text = "AT: ";
+            text_EV.text = "EV: ";
+            unitImgObject.GetComponent<Image>().sprite = blankImg;
+        }
+        /*-----------------------------*/
+    }
+
+    /*-------GUI Scripting----------*/
+    private void Start()
+    { 
+        unitImgObject.GetComponent<Image>().sprite = blankImg;
+    }
+    /*-----------------------------*/
 }
