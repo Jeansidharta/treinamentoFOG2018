@@ -5,7 +5,7 @@ using UnityEngine;
 public class HumanHero : Creature {
    public static GameObject prefab;
 
-   const string _name = "Sir Godfrey(Hero)";
+   const string _name = "Sir Godfrey";
    const string _teamName = "Humans";
    const int _maxHealth = 1000;
    const int _maxActionPoints = 5;

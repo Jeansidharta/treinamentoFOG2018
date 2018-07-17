@@ -5,7 +5,7 @@ using UnityEngine;
 public class UndeadHero : Creature {
    public static GameObject prefab;
 
-   const string _name = "(Hero)";
+   const string _name = "Zarasputim";
    const string _teamName = "Undeads";
    const int _maxHealth = 900;
    const int _maxActionPoints = 5;

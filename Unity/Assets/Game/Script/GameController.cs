@@ -20,6 +20,11 @@ public class GameController : MonoBehaviour {
     [SerializeField] Sprite HKnight;
     [SerializeField] Sprite HSiege;
     [SerializeField] Sprite HSoldier;
+    [SerializeField] Sprite UDarcher;
+    [SerializeField] Sprite UDHero;
+    [SerializeField] Sprite UDKnight;
+    [SerializeField] Sprite UDSiege;
+    [SerializeField] Sprite UDSoldier;
     /*-----------------------------*/
 
     static Creature creatureClicked = null;
@@ -133,6 +138,7 @@ public class GameController : MonoBehaviour {
             //text_EV.text = "EV: " + creatureClicked.evasion.ToString();
             
             //Assigning Selected creature's image file to display on GUI
+            //Humans Team
             if(creatureClicked is HumanArcher)
             {
                 unitImgObject.GetComponent<Image>().sprite = Harcher;
@@ -152,6 +158,27 @@ public class GameController : MonoBehaviour {
             else if (creatureClicked is HumanSoldier)
             {
                 unitImgObject.GetComponent<Image>().sprite = HSoldier;
+            }
+            //Undead Team
+            else if(creatureClicked is UndeadArcher)
+            {
+                unitImgObject.GetComponent<Image>().sprite = UDarcher;
+            }
+            else if (creatureClicked is UndeadHero)
+            {
+                unitImgObject.GetComponent<Image>().sprite = UDHero;
+            }
+            else if (creatureClicked is UndeadKnight)
+            {
+                unitImgObject.GetComponent<Image>().sprite = UDKnight;
+            }
+            else if (creatureClicked is UndeadSiege)
+            {
+                unitImgObject.GetComponent<Image>().sprite = UDSiege;
+            }
+            else if (creatureClicked is UndeadSoldier)
+            {
+                unitImgObject.GetComponent<Image>().sprite = UDSoldier;
             }
         }
         else

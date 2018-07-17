@@ -756,8 +756,13 @@ MonoBehaviour:
   Harcher: {fileID: 21300000, guid: 924b5e63f147285459be4555175bb586, type: 3}
   HHero: {fileID: 21300000, guid: 138dda2dcb9803043a7edca06f6dd480, type: 3}
   HKnight: {fileID: 21300000, guid: 0457eba1ca6991643988b1d1efcd0964, type: 3}
-  HSiege: {fileID: 21300000, guid: 2b240a86a23f86840be8023b2e0f9674, type: 3}
+  HSiege: {fileID: 21300000, guid: 58da361dd854f574dbf18eb5f0646294, type: 3}
   HSoldier: {fileID: 21300000, guid: 2b240a86a23f86840be8023b2e0f9674, type: 3}
+  UDarcher: {fileID: 21300000, guid: 7966cf2b18eac0c4ba501abf3ea49dfc, type: 3}
+  UDHero: {fileID: 21300000, guid: 914ced55e8d0ff7409572e299642ca32, type: 3}
+  UDKnight: {fileID: 21300000, guid: d51afc36426e22644b71a6d00215589c, type: 3}
+  UDSiege: {fileID: 21300000, guid: b9b862368d78ece4799fd1c0d3654957, type: 3}
+  UDSoldier: {fileID: 21300000, guid: 2233962c8f3827442b839f6d6df3491f, type: 3}
 --- !u!1 &464319467
 GameObject:
   m_ObjectHideFlags: 0
