@@ -14,13 +14,17 @@ public class HumanKnight : Creature {
    const int _defenseResistance = 20;
    const int _attackDamage = 70;
    const int _attackRange = 1;
+   static string[] _skillsNames = new string[1] {"Investida"};
+   static string[] _skillsDescriptions = new string[1] { @"Investida: (CD = 5) (AP = 0) (alcance = nulo)
+No turno quando essa habilidade for ativada o dano do cavaleiro real é aumentado em 70 ptos, no entanto, seu ataque consome todo o seu AP disponível.
+" };
 
-   const int assaultMaxCD = 5;
+    const int assaultMaxCD = 5;
    private bool isAssaulting = false;
    private int assaultCD = 0;
    private bool hasTerrainSpeedup = false;
 
-   public HumanKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
+   public HumanKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
       if (terrain is Plains) hasTerrainSpeedup = true;
    }
 

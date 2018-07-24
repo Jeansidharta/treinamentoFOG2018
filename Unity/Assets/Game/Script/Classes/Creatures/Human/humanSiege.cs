@@ -14,8 +14,14 @@ public class HumanSiege : Creature {
    const int _defenseResistance = 10;
    const int _attackDamage = 70;
    const int _attackRange = 3;
+   static string[] _skillsNames = new string[3] { "Montar", "Inversor", "Sistema anti-colisão" };
+   static string[] _skillsDescriptions = new string[3] { @"Montar (AP = 2):
+Para uma unidade de catapulta ser capaz de atirar ela precisa primeiro se montar o que custa AP para fazer. Depois de montada a catapulta pode atacar normalmente desde que ela não se movimente, se a catapulta se mover ela tem que se montar novamente.", @"Inversor: (CD = 4) (AP = 3) (Alcance = nulo)
+Inverte o dano em área, ao invés de causar 70 ao alvo principal e 50 aos secundários, o trebuchet causará 50 ao alvo principal e 70 aos secundários.", @"Sistema anti-colisão: (CD = 6) (AP = 2) (Alcance = 1)
+Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos para longe da maneira mais reta possível.
+" };
 
-   const int _invertMaxCD = 4;
+    const int _invertMaxCD = 4;
    const int _pushMaxCD = 6;
    const int _pushAPCost = 2;
    const int _splashDamage = 50;
@@ -28,7 +34,7 @@ public class HumanSiege : Creature {
    private int invertCD = 0;
    private bool isInverted = false;
 
-   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
+   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
    }
 
    public override void attack(Creature victim) {

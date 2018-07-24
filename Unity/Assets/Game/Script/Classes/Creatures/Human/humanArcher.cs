@@ -7,6 +7,11 @@ public class HumanArcher : Creature {
 
    const string _name = "Archer";
    const string _teamName = "Humans";
+   static string[] _skillsNames = new string[1] {"Armadilha de Rede"};
+   static string[] _skillsDescriptions = new string[1] { @"Armadilha de rede: (Cd = 6) (Ap = 1) (alcance = 1)
+Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invisível. Tal armadilha ira paralisar o alvo impedindo de se movimentar no próximo turno do jogador. A armadilha em si dura 15 turnos.
+" };
+   
    const int _maxHealth = 300;
    const int _maxActionPoints = 3;
    const int _baseDodge = 10;
@@ -23,7 +28,7 @@ public class HumanArcher : Creature {
    private int trapCooldown = 0;
    private List<Creature> enemiesInTheBorder;
 
-   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName) {
+   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
       enemiesInTheBorder = new List<Creature>();
    }
 

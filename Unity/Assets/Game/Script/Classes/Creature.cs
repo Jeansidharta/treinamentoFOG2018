@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class Creature {
    public string name;
    public string teamName;
+   public string[] skills_names;
+   public string[] skill_description;
    public int health;
    public int maxHealth;
    public int attackDamage;
@@ -28,7 +30,7 @@ public abstract class Creature {
 
    public static List<Creature> allCreatures = new List<Creature>();
 
-   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10, string name = null, string teamName = null) {
+   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10, string name = null, string teamName = null, string[] skillsN = null, string[] skills_desc = null) {
       this.x = x;
       this.y = y;
       this.team = team;
@@ -42,6 +44,8 @@ public abstract class Creature {
       this.dodge = dodge;
       this.name = name;
       this.teamName = teamName;
+      this.skills_names = skillsN;
+      this.skill_description = skills_desc;
 
       this.terrain = Terrain.allTiles[y][x];
       this.terrain.creature = this;

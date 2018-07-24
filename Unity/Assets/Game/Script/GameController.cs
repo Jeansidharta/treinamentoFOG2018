@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class GameController : MonoBehaviour {
 
@@ -25,6 +26,22 @@ public class GameController : MonoBehaviour {
     [SerializeField] Sprite UDKnight;
     [SerializeField] Sprite UDSiege;
     [SerializeField] Sprite UDSoldier;
+
+    private GameObject[] panel;
+    private GameObject[] skillGO;
+    private GameObject[] skillN;
+    private GameObject[] skillD;
+
+    /*-------Start Function----------*/
+    private void Start()
+    {
+        unitImgObject.GetComponent<Image>().sprite = blankImg;
+        panel = GameObject.FindGameObjectsWithTag("DescriptionPanel");
+        skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
+        skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
+        skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray(); 
+    }
+
     /*-----------------------------*/
 
     static Creature creatureClicked = null;
@@ -135,11 +152,43 @@ public class GameController : MonoBehaviour {
             text_AP.text = "AP: " + creatureClicked.actionPoints.ToString();
             text_DE.text = "DE: " + creatureClicked.defenseResistance.ToString();
             text_AT.text = "AT: " + creatureClicked.attackDamage.ToString();
+
+            //Checking number of skills and displaying their names and description on GUI
+            if(creatureClicked.skills_names.Length >= 3)
+            {
+                for (int i = 0; i < skillGO.Length; i++) skillGO[i].SetActive(true);
+                for (int i = 0; i < 3; i++) skillN[i].GetComponent<Text>().text = creatureClicked.skills_names[i];
+                for (int i = 0; i < 3; i++) skillD[i].GetComponent<Text>().text = creatureClicked.skill_description[i];
+               
+
+            }
+            else if (creatureClicked.skills_names.Length == 2)
+            {
+                skillGO[0].SetActive(true);
+                skillGO[1].SetActive(true);
+                skillGO[2].SetActive(false);
+                for (int i = 0; i < 2; i++) skillN[i].GetComponent<Text>().text = creatureClicked.skills_names[i];
+                for (int i = 0; i < 2; i++) skillD[i].GetComponent<Text>().text = creatureClicked.skill_description[i];
+                skillN[2].GetComponent<Text>().text = null;
+                skillD[2].GetComponent<Text>().text = null;
+            }
+            else //1 Skill only
+            {
+                for (int i = 0; i < skillGO.Length; i++)
+                {
+                    if(i == 0) skillGO[i].SetActive(true);
+                    else skillGO[i].SetActive(false);
+                }
+                skillN[0].GetComponent<Text>().text = creatureClicked.skills_names[0];
+                for (int i = 1; i < 3; i++) skillN[i].GetComponent<Text>().text = null;
+                for (int i = 1; i < 3; i++) skillD[i].GetComponent<Text>().text = null;
+                skillD[0].GetComponent<Text>().text = creatureClicked.skill_description[0];
+            }
             //text_EV.text = "EV: " + creatureClicked.evasion.ToString();
-            
+
             //Assigning Selected creature's image file to display on GUI
             //Humans Team
-            if(creatureClicked is HumanArcher)
+            if (creatureClicked is HumanArcher)
             {
                 unitImgObject.GetComponent<Image>().sprite = Harcher;
             }
@@ -190,15 +239,13 @@ public class GameController : MonoBehaviour {
             text_DE.text = "DE: ";
             text_AT.text = "AT: ";
             text_EV.text = "EV: ";
+            for (int i = 0; i < skillGO.Length; i++) skillGO[i].SetActive(false);
+            for (int i = 0; i < panel.Length; i++) panel[i].SetActive(false);
+            
+
             unitImgObject.GetComponent<Image>().sprite = blankImg;
         }
         /*-----------------------------*/
     }
 
-    /*-------GUI Scripting----------*/
-    private void Start()
-    { 
-        unitImgObject.GetComponent<Image>().sprite = blankImg;
-    }
-    /*-----------------------------*/
 }

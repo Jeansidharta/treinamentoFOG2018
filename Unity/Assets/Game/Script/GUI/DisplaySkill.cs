@@ -9,6 +9,7 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Text obTexto;
     public Text nomeSkill;
     public GameObject descricaoOb;
+    [SerializeField] GameObject panel;
 
     private bool Display;
 
@@ -18,6 +19,7 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         nomeSkill.text = strDescricao;
         obTexto.text = strDescricao;
         nomeSkill.color = Color.black;
+        panel.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -35,11 +37,13 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Display)
         {
             descricaoOb.SetActive(true);
+            panel.SetActive(true);
             obTexto.color = Color.white;
         }
         else
         {
             descricaoOb.SetActive(false);
+            panel.SetActive(false);
             obTexto.color = Color.clear;
         }
     }
