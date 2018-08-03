@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] Text text_DE;
     [SerializeField] Text text_AT;
     [SerializeField] Text text_EV;
+    [SerializeField] GameObject BlockButton;
     [SerializeField] Image unitImgObject;
     [SerializeField] Sprite blankImg;
     [SerializeField] Sprite Harcher;
@@ -39,7 +40,8 @@ public class GameController : MonoBehaviour {
         panel = GameObject.FindGameObjectsWithTag("DescriptionPanel");
         skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
         skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
-        skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray(); 
+        skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray();
+        BlockButton.SetActive(false);
     }
 
     /*-----------------------------*/
@@ -145,6 +147,9 @@ public class GameController : MonoBehaviour {
       /*-------GUI Scripting----------*/
         if (creatureClicked != null)
         {
+            //Displaying Block Button
+            BlockButton.SetActive(true);
+
             //Assigning Selected creature's value to diplay on GUI
             text_name.text = "Name: " + creatureClicked.name;
             text_team.text = "Team: " + creatureClicked.teamName;
@@ -241,7 +246,8 @@ public class GameController : MonoBehaviour {
             text_EV.text = "EV: ";
             for (int i = 0; i < skillGO.Length; i++) skillGO[i].SetActive(false);
             for (int i = 0; i < panel.Length; i++) panel[i].SetActive(false);
-            
+            BlockButton.SetActive(false);
+
 
             unitImgObject.GetComponent<Image>().sprite = blankImg;
         }
