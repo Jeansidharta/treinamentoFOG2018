@@ -23,8 +23,10 @@ Ao usar encurralar o jogador escolhe uma unidade inimiga próxima, até dois ali
 Defensor dos povos concede a todas as unidades aliadas ao seu redor defesa equivalente a 150% da porcentagem vida perdida dessas unidades.
 " };
 
-    const int _areaHealingAmmount = 15;
+   const int _areaHealingAmmount = 15;
    const int _areaHealingRange = 1;
+
+   const int _
 
    public HumanHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
 
@@ -38,5 +40,17 @@ Defensor dos povos concede a todas as unidades aliadas ao seu redor defesa equiv
          surroundings.creatures[aux].second.changeHealth(_areaHealingAmmount);
       }
       return true;
+   }
+
+   public void previewFortress(){
+
+   }
+
+   public void lastResource(){
+
+   }
+
+   public void corner(){
+
    }
 }

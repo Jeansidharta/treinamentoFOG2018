@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class cellControl : MonoBehaviour {
 
@@ -11,9 +12,13 @@ public class cellControl : MonoBehaviour {
 	void Update () {
    }
    void OnMouseDown() {
-      cell.mouseDown();
+      if(!EventSystem.current.IsPointerOverGameObject()){
+         cell.mouseDown();
+      }
    }
    void OnMouseUp() {
-      cell.mouseUp();
+      if(!EventSystem.current.IsPointerOverGameObject()){
+         cell.mouseUp();
+      }
    }
 }

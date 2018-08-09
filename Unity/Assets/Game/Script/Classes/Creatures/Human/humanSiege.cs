@@ -81,15 +81,14 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
       if (pushCD > 0) pushCD--;
    }
 
-   public bool habilityInvert() {
+   public void habilityInvert() {
       if (invertCD > 0) {
          Debug.Log("wait " + invertCD + " turns to use this hability");
-         return false;
+         return;
       }
       invertCD = _invertMaxCD;
       Debug.Log("inverted damage");
       isInverted = true;
-      return true;
    }
 
    private void habilityPushAux(Creature creature) {
@@ -105,14 +104,14 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
       creature.move(creatureTerrain.x, creatureTerrain.y, 0);
    }
 
-   public bool habilityPush() {
+   public void habilityPush() {
       if (pushCD > 0) {
          Debug.Log("wait " + pushCD + " turns to use this hability");
-         return false;
+         return;
       }
       if (!useActionPoints(_pushAPCost)){
          Debug.Log("not enough action points");
-         return false;
+         return;
       }
       pushCD = _pushMaxCD;
       Debug.Log("Pushed!");
@@ -121,7 +120,7 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
       for(int aux = 1; aux < surroundings.creatures.Count; aux ++){
          habilityPushAux(surroundings.creatures[aux].second);
       }
-      return true;
+      return;
    }
 
    public override void move(int x, int y, int distance) {

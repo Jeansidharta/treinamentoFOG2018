@@ -27,6 +27,7 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
    private bool movedThisTurn = false;
    private int trapCooldown = 0;
    private List<Creature> enemiesInTheBorder;
+   private Surroundings preview = null;
 
    public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
       enemiesInTheBorder = new List<Creature>();
@@ -69,17 +70,22 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
       }
    }
 
-   public Surroundings previewTrap(){
+   //public Surroundings previewTrap(){
+   public void previewTrap(){
       if(trapCooldown > 0){
          Debug.Log("Wait more " + trapCooldown + " turns");
-         return null;
+         preview = null;
+         return;
       }
       if(!useActionPoints(_trapAPCost)){
          Debug.Log("Not enough action points");
-         return null;
+         preview = null;
+         return;
       }
       Debug.Log("Previewing trap");
-      return terrain.expandByDistance(terrain.movePointsRequired);
+      preview = terrain.expandByDistance(terrain.movePointsRequired);
+      GameController.previewingHumanArcherTrap();
+      preview.paint(new Color(255, 255, 0));
    }
 
    public void setTrap(int x, int y){
@@ -87,5 +93,21 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
       new HumanArcherTrap(x, y, team);
       actionPoints --;
       trapCooldown = _trapMaxCooldown;
+   }
+
+   public void trySetTrap(Terrain terrain){
+      if(preview.hasTerrain(terrain.x, terrain.y)){
+         if(terrain.creature == null && terrain.trap == null){
+            if(!(terrain is Mountain)){
+               this.setTrap(terrain.x, terrain.y);
+            }
+            else Debug.Log("Cant place trap in mountain");
+         }
+         else Debug.Log("Cant place trap over another creature or trap");
+      }
+      else Debug.Log("position out of range");
+      preview.clear();
+      preview = null;
+      GameController.notPreviewingHumanArcherTrap();
    }
 }

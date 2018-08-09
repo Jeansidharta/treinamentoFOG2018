@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
     public Text obTexto;
     public Text nomeSkill;
     public GameObject descricaoOb;
+    public Creature creature = null;
     [SerializeField] GameObject panel;
+
+    public delegate void SkillFunction();
+    public SkillFunction skillFunction;
 
     private bool Display;
 
@@ -20,6 +24,11 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         obTexto.text = strDescricao;
         nomeSkill.color = Color.black;
         panel.SetActive(false);
+    }
+
+    public void OnPointerUp(PointerEventData eventData){ //apply skill
+       if(skillFunction != null) skillFunction();
+       else Debug.Log("skillFunction was null");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

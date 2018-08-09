@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -735,6 +735,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 455707498}
+  - component: {fileID: 455707500}
   - component: {fileID: 455707497}
   - component: {fileID: 455707499}
   m_Layer: 0
@@ -775,8 +776,10 @@ MonoBehaviour:
     type: 2}
   humanHeroPrefab: {fileID: 1150488195593598, guid: daea6f21c1231604b90984bab174f811,
     type: 2}
-  humanArcherTrapPrefab: {fileID: 0}
-  humanWoodenFortressPrefab: {fileID: 0}
+  humanArcherTrapPrefab: {fileID: 1599078141958290, guid: 7be8d6b2e83dfc94c99e9327b23185ae,
+    type: 2}
+  humanWoodenFortressPrefab: {fileID: 1377576167622282, guid: cb115cde30e1eb14494fd6810d0c4acb,
+    type: 2}
   undeadSoldierPrefab: {fileID: 1119490325637916, guid: cbb0e5759327b444f97c7b0ea902e031,
     type: 2}
   undeadArcherPrefab: {fileID: 1491103585679486, guid: 25bc8a4e52e394f4090d935c370e5fb1,
@@ -812,6 +815,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031cb644a592ea54d80208a1e24df20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &455707500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 455707496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c8050059f36824e8ac7932cb01e3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   text_name: {fileID: 945141018}
   text_team: {fileID: 464319469}
   text_HP: {fileID: 938343500}
@@ -819,7 +833,6 @@ MonoBehaviour:
   text_DE: {fileID: 454192754}
   text_AT: {fileID: 557174857}
   text_EV: {fileID: 315114776}
-  BlockButton: {fileID: 1747456784}
   unitImgObject: {fileID: 1031607801}
   blankImg: {fileID: 21300000, guid: 362217b122388b447913f1f7272bcea0, type: 3}
   Harcher: {fileID: 21300000, guid: 924b5e63f147285459be4555175bb586, type: 3}

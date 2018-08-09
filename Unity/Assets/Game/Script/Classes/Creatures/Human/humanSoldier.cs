@@ -38,14 +38,14 @@ Por um turno, a resistência em defender é triplicada enquanto a cura é duplic
       base.newTeamTurn();
    }
 
-   public bool raiseShields(){
+   public void raiseShields(){
       if(raiseShieldsCooldown > 0){
          Debug.Log("wait " + raiseShieldsCooldown + " turns");
-         return false;
+         return;
       }
       if(!useActionPoints(_raiseShieldsAPCost)){
          Debug.Log("Not enough action points");
-         return false;
+         return;
       }
       Debug.Log("raising shields, also automatically defending");
       areShieldsRaised = true;
@@ -53,6 +53,6 @@ Por um turno, a resistência em defender é triplicada enquanto a cura é duplic
       defenseResistance *= 3;
       raiseShieldsCooldown = _raiseShieldsMaxCooldown;
       defend();
-      return true;
+      return;
    }
 }
