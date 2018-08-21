@@ -1,6 +1,5 @@
 abra o index.html para iniciar o editor de mapa
 
-
 -----------controles---------------
 
 	-botao direito mouse: segure esse botao e arrate para mover a camera.
@@ -13,4 +12,4 @@ no menu de criaturas, a parte superior é dedicada aos humanos, enquanto a parte 
 ainda no menu de criaturas, há um botao que mostra um numero. esse numero representa o time que a criatura que for colocada vai pertencer.
 ainda neste menu de criaturas, o botao "sem criatura" limpa desceleciona criaturas.
 
-o botao do menu direito "gerar arquivo" gera o mapa a ser colocado na unity.
+o botao do menu direito "gerar arquivo" gera o mapa a ser colocado na unity. caso queria editar um mapa ja gerado, arraste o arquivo do mapa para o editor.
