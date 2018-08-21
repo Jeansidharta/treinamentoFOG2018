@@ -13,6 +13,11 @@ public class TurnController{
       foreach (Trap trap in Trap.allTraps) {
          trap.newTurn(turn);
       }
+      
+      foreach (HumanWoodenFortress fortress in HumanWoodenFortress.allFortresses) {
+         fortress.newTurn(turn);
+      }
       while(Trap.allTraps.Remove(null));
+      while(HumanWoodenFortress.allFortresses.Remove(null));
    }
 }

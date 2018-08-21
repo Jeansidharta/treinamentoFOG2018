@@ -11,6 +11,7 @@ public class Terrain {
    public int movePointsRequired;
    public Creature creature = null;
    public Trap trap = null;
+   public HumanWoodenFortress fortress = null;
    public int x, y;
 
    public static Terrain[][] allTiles;

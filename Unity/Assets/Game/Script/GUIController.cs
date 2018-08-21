@@ -78,42 +78,50 @@ public class GUIController : MonoBehaviour {
       display0.skillFunction = null;
       display1.skillFunction = null;
       display2.skillFunction = null;
+      display0.creature = creature;
+      display1.creature = creature;
+      display2.creature = creature;
       if (creature is HumanArcher){
-            unitImgObject.GetComponent<Image>().sprite = Harcher;
-            display0.skillFunction = (creature as HumanArcher).previewTrap;
+         unitImgObject.GetComponent<Image>().sprite = Harcher;
+         display0.skillFunction = (creature as HumanArcher).previewTrap;
       }
       else if (creature is HumanHero){
-            unitImgObject.GetComponent<Image>().sprite = HHero;
-            //display0.skillFunction = (creature as HumanHero).;
+         unitImgObject.GetComponent<Image>().sprite = HHero;
+         display0.skillFunction = (creature as HumanHero).previewFortress;
+         display1.skillFunction = (creature as HumanHero).previewCorner;
+         display2.skillFunction = (creature as HumanHero).lastResource;
       }
       else if (creature is HumanKnight){
-            unitImgObject.GetComponent<Image>().sprite = HKnight;
-            display0.skillFunction = (creature as HumanKnight).assault;
+         unitImgObject.GetComponent<Image>().sprite = HKnight;
+         display0.skillFunction = (creature as HumanKnight).assault;
       }
       else if (creature is HumanSiege){
-            unitImgObject.GetComponent<Image>().sprite = HSiege;
-            display0.skillFunction = (creature as HumanSiege).toggleMount;
-            display1.skillFunction = (creature as HumanSiege).habilityInvert;
-            display2.skillFunction = (creature as HumanSiege).habilityPush;
+         unitImgObject.GetComponent<Image>().sprite = HSiege;
+         display0.skillFunction = (creature as HumanSiege).toggleMount;
+         display1.skillFunction = (creature as HumanSiege).habilityInvert;
+         display2.skillFunction = (creature as HumanSiege).habilityPush;
       }
       else if (creature is HumanSoldier){
-            unitImgObject.GetComponent<Image>().sprite = HSoldier;
-            display0.skillFunction = (creature as HumanSoldier).raiseShields;
+         unitImgObject.GetComponent<Image>().sprite = HSoldier;
+         display0.skillFunction = (creature as HumanSoldier).raiseShields;
       }
       else if(creature is UndeadArcher){
-            unitImgObject.GetComponent<Image>().sprite = UDarcher;
+         unitImgObject.GetComponent<Image>().sprite = UDarcher;
+         display0.skillFunction = (creature as UndeadArcher).toxic;
       }
       else if (creature is UndeadHero){
-            unitImgObject.GetComponent<Image>().sprite = UDHero;
+         unitImgObject.GetComponent<Image>().sprite = UDHero;
       }
       else if (creature is UndeadKnight){
-            unitImgObject.GetComponent<Image>().sprite = UDKnight;
+         unitImgObject.GetComponent<Image>().sprite = UDKnight;
       }
       else if (creature is UndeadSiege){
-            unitImgObject.GetComponent<Image>().sprite = UDSiege;
+         unitImgObject.GetComponent<Image>().sprite = UDSiege;
+         display1.skillFunction = (creature as UndeadSiege).previewSupress;
       }
       else if (creature is UndeadSoldier){
-            unitImgObject.GetComponent<Image>().sprite = UDSoldier;
+         unitImgObject.GetComponent<Image>().sprite = UDSoldier;
+         display0.skillFunction = (creature as UndeadSoldier).previewCursedTouch;
       }
    }
    public void selectBlank(){

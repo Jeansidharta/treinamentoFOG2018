@@ -27,9 +27,4 @@ public class nextTurnButtonControll : MonoBehaviour {
       renderer2 = player2.GetComponent<CanvasRenderer>();
       renderer2.SetAlpha(0);
    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

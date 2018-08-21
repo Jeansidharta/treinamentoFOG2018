@@ -27,8 +27,12 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     public void OnPointerUp(PointerEventData eventData){ //apply skill
-       if(skillFunction != null) skillFunction();
-       else Debug.Log("skillFunction was null");
+      if(creature.isUndeadSiegeSupressed){
+         Debug.Log("creature is supressed, cant use hability");
+         return;
+      }
+      if(skillFunction != null) skillFunction();
+      else Debug.Log("skillFunction was null");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -47,13 +51,11 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             descricaoOb.SetActive(true);
             panel.SetActive(true);
-            obTexto.color = Color.white;
         }
         else
         {
             descricaoOb.SetActive(false);
             panel.SetActive(false);
-            obTexto.color = Color.clear;
         }
     }
 }

@@ -20,7 +20,57 @@ Nesse turno ao invés do ataque conceder apenas 1 contador do veneno (aumentar e
    const int _attackDamage = 30;
    const int _attackRange = 2;
 
+   const int _venomDuration = 3;
+   private Creature venomTarget = null;
+   private int venomDamage = 0;
+   private int venomTurnsRemaining = 0;
+
+   const int _maxToxicCooldown = 4;
+   private int toxicCooldown = 0;
+   private bool isUsingToxic = false;
+
    public UndeadArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
 
+   }
+
+   public override void newTeamTurn(){
+      base.newTeamTurn();
+   }
+
+   public override void newTurn(int turn){
+      base.newTurn(turn);
+      if(venomTarget != null){
+         venomTarget.changeHealth(-venomDamage);
+         Debug.Log("applying " + venomDamage + " as venom damage");
+         venomTurnsRemaining--;
+         if(venomTurnsRemaining <= 0){
+            venomTarget = null;
+            venomDamage = 0;
+         }
+      }
+      isUsingToxic = false;
+   }
+
+   public override void attack(Creature victim){
+      base.attack(victim);
+      if(victim == venomTarget){
+         venomDamage += 5;
+         if(venomDamage > 20 || isUsingToxic)
+            venomDamage = 20;
+      }
+      else{
+         venomDamage = 5;
+      }
+      venomTurnsRemaining = _venomDuration;
+      venomTarget = victim;
+   }
+
+   public void toxic(){
+      if(toxicCooldown > 0){
+         Debug.Log("wait " + toxicCooldown + " turns");
+      }
+      toxicCooldown = _maxToxicCooldown;
+      isUsingToxic = true;
+      Debug.Log("using toxic");
    }
 }

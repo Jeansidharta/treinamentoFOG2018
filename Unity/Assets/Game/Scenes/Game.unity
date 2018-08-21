@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 7519c9606a25a5f44b456f22c03fccf0, type: 2}
+  profile: {fileID: 0}
 --- !u!1 &258703442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b364fa6d914da4f9a0eae2face496f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obTexto: {fileID: 609113512}
+  obTexto: {fileID: 58951009}
   nomeSkill: {fileID: 58951009}
   descricaoOb: {fileID: 609113510}
   panel: {fileID: 647948083}
@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b364fa6d914da4f9a0eae2face496f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obTexto: {fileID: 997395994}
+  obTexto: {fileID: 792884690}
   nomeSkill: {fileID: 792884690}
   descricaoOb: {fileID: 997395992}
   panel: {fileID: 350894184}
@@ -2503,7 +2503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b364fa6d914da4f9a0eae2face496f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obTexto: {fileID: 1309939438}
+  obTexto: {fileID: 58852206}
   nomeSkill: {fileID: 58852206}
   descricaoOb: {fileID: 1309939436}
   panel: {fileID: 1442336499}

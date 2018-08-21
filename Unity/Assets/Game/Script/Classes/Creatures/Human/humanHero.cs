@@ -26,10 +26,38 @@ Defensor dos povos concede a todas as unidades aliadas ao seu redor defesa equiv
    const int _areaHealingAmmount = 15;
    const int _areaHealingRange = 1;
 
-   const int _
+   const int _maxFortressCooldown = 7;
+   private int fortressCooldown = 0;
+   
+   const int _maxCornerCooldown = 7;
+   const int _minCornerAP = 2;
+   private int cornerCooldown = 0;
+   
+   const int _maxLastResourcesCooldown = 5;
+   const int _minLastResourcesAP = 2;
+   private int lastResourcesCooldown = 0;
+   List<Pair<Creature, int>> lastResourcesTargets = null;
+
+   public Surroundings cornerSurroundings = null;
 
    public HumanHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
 
+   }
+
+   public override void newTeamTurn(){
+      base.newTeamTurn();
+      if(fortressCooldown > 0) fortressCooldown --;
+      if(lastResourcesCooldown > 0) lastResourcesCooldown--;
+      if(cornerCooldown > 0) cornerCooldown --;
+      if(lastResourcesTargets != null){
+         for(int aux = 0; aux < lastResourcesTargets.Count; aux ++){
+            Creature creature = lastResourcesTargets[aux].first;
+            int ammount = lastResourcesTargets[aux].second;
+            creature.defenseResistance -= ammount;
+         }
+         Debug.Log("removing defenses");
+         lastResourcesTargets = null;
+      }
    }
 
    public override bool defend(){
@@ -43,14 +71,102 @@ Defensor dos povos concede a todas as unidades aliadas ao seu redor defesa equiv
    }
 
    public void previewFortress(){
+      if(fortressCooldown > 0){
+         Debug.Log("wait " + fortressCooldown + " turns to use this");
+         return;
+      }
+      if(actionPoints < 1){
+         Debug.Log("not enough action points");
+         return;
+      }
+      GameController.previewingHumanHeroFortress();
+   }
 
+   public void trySetFortress(Terrain terrain){
+      if(terrain.fortress != null){
+         Debug.Log("already has a fortress here");
+         return;
+      }
+      new HumanWoodenFortress(terrain, team);
+      fortressCooldown = _maxFortressCooldown;
+      actionPoints = 0;
+      GameController.notPreviewingHumanHeroFortress();
    }
 
    public void lastResource(){
-
+      if(lastResourcesCooldown > 0){
+         Debug.Log("wait " + lastResourcesCooldown + " rounds");
+         return;
+      }
+      if(!useActionPoints(_minLastResourcesAP)){
+         Debug.Log("not enough action points");
+         return;
+      }
+      lastResourcesCooldown = _maxLastResourcesCooldown;
+      Surroundings surroundings = terrain.expandByDistance(1);
+      lastResourcesTargets = new List<Pair<Creature, int>>();
+      for(int aux = 0; aux < surroundings.creatures.Count; aux ++){
+         Creature creature = surroundings.creatures[aux].second;
+         if(creature == this) continue;
+         if(creature.team == team){
+            int ammount = (int)((float)(creature.maxHealth - creature.health) * 1.5);
+            creature.defenseResistance += ammount;
+            lastResourcesTargets.Add(new Pair<Creature, int>(creature, ammount));
+            Debug.Log("giving " + ammount + " defense to creature");
+         }
+      }
    }
 
-   public void corner(){
+   public void previewCorner(){
+      if(fortressCooldown > 0){
+         Debug.Log("wait " + fortressCooldown + " turns to use this");
+         return;
+      }
+      if(!useActionPoints(_minCornerAP)){
+         Debug.Log("not enough action points");
+         return;
+      }
+      cornerSurroundings = terrain.expandByDistance(2);
+      GameController.previewingCorner();
+      cornerSurroundings.paint(Color.blue);
+   }
 
+   public void tryCorner(Terrain terrain){
+      if(terrain.creature == null || terrain.creature.team == team){
+         Debug.Log("invalid target");
+         cornerSurroundings.clear();
+         GameController.notPreviewingCorner();
+         return;
+      }
+      if(!cornerSurroundings.hasTerrain(terrain.x, terrain.y)){
+         Debug.Log("out of reach");
+         cornerSurroundings.clear();
+         GameController.notPreviewingCorner();
+         return;
+      }
+      int bestCount = 0;
+      int secondBestCount = 0;
+      Creature best = null;
+      Creature secondBest = null;
+      for(int aux = 0; aux < cornerSurroundings.creatures.Count; aux ++){
+         Creature creature = cornerSurroundings.creatures[aux].second;
+         if(creature == this) continue;
+         if(creature.team == team){
+            if(creature.attackDamage > bestCount){
+               bestCount = creature.attackDamage;
+               best = creature;
+            }
+            else if(creature.attackDamage > secondBestCount){
+               secondBest = creature;
+               secondBestCount = creature.attackDamage;
+            }
+         }
+      }
+      int buffer = attackDamage;
+      attackDamage = bestCount + secondBestCount;
+      terrain.creature.receiveAttack(this);
+      attackDamage = buffer;
+      Debug.Log("used last resource");
+      GameController.notPreviewingCorner();
    }
 }

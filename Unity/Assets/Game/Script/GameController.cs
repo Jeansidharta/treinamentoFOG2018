@@ -8,13 +8,54 @@ public class GameController {
    public static GUIController guiController;
 
    static bool isPreviewHumanArcherTrap = false;
+   static bool isPreviewHumanHeroFortress = false;
+   static bool isPreviewCorner = false;
+   static bool isPreviewCursedTouch = false;
+   static bool isPreviewSupress = false;
 
    public static void previewingHumanArcherTrap(){
       isPreviewHumanArcherTrap = true;
       possibilities.clear();
    }
+
+   public static void previewingCorner(){
+      isPreviewCorner = true;
+      possibilities.clear();
+   }
+
+   public static void previewingHumanHeroFortress(){
+      isPreviewHumanHeroFortress = true;
+      possibilities.clear();
+   }
+
+   public static void previewingCursedTouch(){
+      isPreviewCursedTouch = true;
+      possibilities.clear();
+   }
+
+   public static void previewingSupress(){
+      isPreviewSupress = true;
+      possibilities.clear();
+   }
+   
    public static void notPreviewingHumanArcherTrap(){
       isPreviewHumanArcherTrap = false;
+   }
+   
+   public static void notPreviewingSupress(){
+      isPreviewSupress = false;
+   }
+   
+   public static void notPreviewingCursedTouch(){
+      isPreviewCursedTouch = false;
+   }
+
+   public static void notPreviewingCorner(){
+      isPreviewCorner = false;
+   }
+   
+   public static void notPreviewingHumanHeroFortress(){
+      isPreviewHumanHeroFortress = false;
    }
 
    private static void selectCreature(Creature creature) {
@@ -33,6 +74,30 @@ public class GameController {
          Creature creature = creatureClicked;
          selectCreature(null);
          (creature as HumanArcher).trySetTrap(terrain);
+         return;
+      }
+      if(isPreviewHumanHeroFortress){
+         Creature creature = creatureClicked;
+         selectCreature(null);
+         (creature as HumanHero).trySetFortress(terrain);
+         return;
+      }
+      if(isPreviewCorner){
+         Creature creature = creatureClicked;
+         selectCreature(null);
+         (creature as HumanHero).tryCorner(terrain);
+         return;
+      }
+      if(isPreviewCursedTouch){
+         Creature creature = creatureClicked;
+         selectCreature(null);
+         (creature as UndeadSoldier).tryCursedTouch(terrain);
+         return;
+      }
+      if(isPreviewSupress){
+         Creature creature = creatureClicked;
+         selectCreature(null);
+         (creature as UndeadSiege).trySupress(terrain);
          return;
       }
       if (creatureClicked == null) {

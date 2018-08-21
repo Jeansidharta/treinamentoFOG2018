@@ -23,6 +23,8 @@ public abstract class Creature {
    public bool isDefending = false;
    public bool wasDefenseHealApplied = false;
 
+   public bool isUndeadSiegeSupressed = false;
+
    public int x, y;
    public int team;
    public Terrain terrain;
@@ -85,6 +87,17 @@ public abstract class Creature {
    }
 
    public virtual void die() {
+      Surroundings surroundings = terrain.expandByDistance(1);
+      for(int aux = 0; aux < surroundings.creatures.Count; aux ++){
+         Creature creature = surroundings.creatures[aux].second;
+         if(creature is UndeadSoldier){
+            if(creature.health < creature.maxHealth){
+               creature.health += 70;
+            }
+            else creature.health += 50;
+            Debug.Log("undead soldier absorbed me");
+         }
+      }
       terrain.creature = null;
       allCreatures.Remove(this);
       MonoBehaviour.Destroy(spriteInstance);
@@ -164,6 +177,14 @@ public abstract class Creature {
       else if(lastTerrain is Forest && !(terrain is Forest)){
          Debug.Log("Stepping out of forest");
          dodge -= (lastTerrain as Forest).dodgeBonus;
+      }
+      if(lastTerrain.fortress == null && terrain.fortress != null && terrain.fortress.team == team){
+         Debug.Log("Stepping in a wooden fortress");
+         defenseResistance += terrain.fortress.additionalDefense;
+      }
+      else if(lastTerrain.fortress != null && terrain.fortress == null && lastTerrain.fortress.team == team){
+         Debug.Log("Stepping out of wooden fortress");
+         defenseResistance -= lastTerrain.fortress.additionalDefense;
       }
    }
 

@@ -21,8 +21,77 @@ Selecione uma unidade inimiga que não for o Herói, essa unidade não poderá s
    const int _defenseResistance = 30;
    const int _attackDamage = 20;
    const int _attackRange = 1;
+   
+   const int _mountAPCost = 2;
+   private bool isMounted = false;
+
+   const int _maxSupressCooldown = 4;
+   const int _minSupressAP = 2;
+   private int supressCooldown = 0;
+   private Surroundings supressSurroundings = null;
+   private Creature supressTarget = null;
 
    public UndeadSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
 
+   }
+
+   public void toggleMount() {
+      if (!useActionPoints(_mountAPCost)) {
+         Debug.Log("Not enough action points");
+         return;
+      }
+      isMounted = !isMounted;
+      if (isMounted)
+         Debug.Log("Mounted");
+      else
+         Debug.Log("Unmounted");
+   }
+
+   public override void attack(Creature victim) {
+      if (!isMounted) {
+         Debug.Log("Must mount to attack");
+         return;
+      }
+      base.attack(victim);
+   }
+
+   public override void newTeamTurn(){
+      base.newTeamTurn();
+      if(supressCooldown > 0) supressCooldown--;
+      if(supressTarget != null){
+         supressTarget.isUndeadSiegeSupressed = false;
+         supressTarget = null;
+      }
+   }
+
+   public void previewSupress(){
+      if(supressCooldown > 0){
+         Debug.Log("wait " + supressCooldown + " turns");
+         return;
+      }
+      if(!useActionPoints(_minSupressAP)){
+         Debug.Log("not enough action points");
+         return;
+      }
+      supressSurroundings = terrain.expandByDistance(2);
+      GameController.previewingSupress();
+      supressSurroundings.paint(Color.blue);
+   }
+
+   public void trySupress(Terrain terrain){
+      GameController.notPreviewingSupress();
+      supressSurroundings.clear();
+      if(terrain.creature == null || terrain.creature.team == team){
+         Debug.Log("invalid target");
+         return;
+      }
+      if(!supressSurroundings.hasTerrain(terrain.x, terrain.y)){
+         Debug.Log("out of range");
+         return;
+      }
+      supressCooldown = _maxSupressCooldown;
+      terrain.creature.isUndeadSiegeSupressed = true;
+      supressTarget = terrain.creature;
+      Debug.Log("supressing creature");
    }
 }

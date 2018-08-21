@@ -23,4 +23,10 @@ Durante o próximo turno do inimigo o cavaleiro espectral não poderá receber d
    public UndeadKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
 
    }
+
+   public override void attack(Creature victim) {
+      int ap = this.actionPoints - 1;
+      base.attack(victim);
+      this.actionPoints = ap;
+   }
 }
