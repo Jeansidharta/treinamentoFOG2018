@@ -8,4 +8,8 @@ public class startBtn : MonoBehaviour {
 	public void AbrirJogo(){
         SceneManager.LoadScene("Game");
     }
+    public void BacktoMenu()
+    {
+        SceneManager.LoadScene("MenuInicial");
+    }
 }

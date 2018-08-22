@@ -15,6 +15,7 @@ public class GUIController : MonoBehaviour {
    [SerializeField] Text text_EV;
    [SerializeField] Image unitImgObject;
    [SerializeField] Sprite blankImg;
+   [SerializeField] Sprite[] teamImg;
    [SerializeField] Sprite Harcher;
    [SerializeField] Sprite HHero;
    [SerializeField] Sprite HKnight;
@@ -30,8 +31,11 @@ public class GUIController : MonoBehaviour {
    private GameObject[] skillGO;
    private GameObject[] skillN;
    private GameObject[] skillD;
+   private GameObject WinUI;
+   private GameObject winText;
+   private GameObject winImg;
 
-   private Creature selectedCreature;
+    private Creature selectedCreature;
     
    private void Start(){
       GameController.guiController = this;
@@ -108,4 +112,20 @@ public class GUIController : MonoBehaviour {
       for (int i = 0; i < panel.Length; i++) panel[i].SetActive(false);
       unitImgObject.GetComponent<Image>().sprite = blankImg;
    }
+
+    public void gameOver(int player, int team ){
+        //Setting WinUI Active
+        WinUI = GameObject.FindGameObjectWithTag("WinUI");
+        WinUI.SetActive(true);
+        
+        //Setting win text
+        winText = GameObject.FindGameObjectWithTag("WinText");
+        winText.GetComponent<Text>().text = "Player " + (player+1).ToString() + " wins";
+
+        //Setting Winner Image
+        winImg = GameObject.FindGameObjectWithTag("WinImg");
+        winImg.GetComponent<Image>().sprite = teamImg[team];
+
+    }
+
 }

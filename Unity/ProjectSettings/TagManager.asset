@@ -8,6 +8,9 @@ TagManager:
   - SkillObject
   - SkillText
   - SkillDescription
+  - WinUI
+  - WinImg
+  - WinText
   layers:
   - Default
   - TransparentFX
