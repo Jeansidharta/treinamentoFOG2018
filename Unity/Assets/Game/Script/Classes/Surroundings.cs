@@ -12,11 +12,13 @@ using UnityEngine;
 public class Surroundings {
    public Dictionary<string, Trio<int, int, Terrain>> terrains;
    public List<Pair<int, Creature>> creatures;
+   public Terrain origin;
 
    //initializes stuff
-   public Surroundings() {
+   public Surroundings(Terrain origin) {
       terrains = new Dictionary<string, Trio<int, int, Terrain>>();
       creatures = new List<Pair<int, Creature>>();
+      this.origin = origin;
    }
 
    //transforms the coords into a string for the dictionary hashing
@@ -94,7 +96,8 @@ public class Surroundings {
 
    public void paint(Color color) {
       foreach (var item in terrains) {
-         item.Value.third.setColor(color);
+         if(!(item.Value.third is Mountain))
+            item.Value.third.setColor(color);
       }
       /*
       for (int aux = 1; aux < creatures.Count; aux ++) {

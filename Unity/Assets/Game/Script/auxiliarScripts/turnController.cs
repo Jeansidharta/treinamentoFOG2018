@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurnController{
    public static int turn = 0;
    public static void nextTurn() {
+      GameController.newTurn(turn);
       turn = 1 - turn;
       foreach (Creature creature in Creature.allCreatures) {
          creature.newTurn(turn);

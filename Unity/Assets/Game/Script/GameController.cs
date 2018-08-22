@@ -5,99 +5,78 @@ using UnityEngine;
 public class GameController {
    static Creature creatureClicked = null;
    public static Surroundings possibilities = null;
+   public static Surroundings attackPossibilities = null;
    public static GUIController guiController;
-
-   static bool isPreviewHumanArcherTrap = false;
-   static bool isPreviewHumanHeroFortress = false;
-   static bool isPreviewCorner = false;
-   static bool isPreviewCursedTouch = false;
-   static bool isPreviewSupress = false;
-
-   public static void previewingHumanArcherTrap(){
-      isPreviewHumanArcherTrap = true;
-      possibilities.clear();
-   }
-
-   public static void previewingCorner(){
-      isPreviewCorner = true;
-      possibilities.clear();
-   }
-
-   public static void previewingHumanHeroFortress(){
-      isPreviewHumanHeroFortress = true;
-      possibilities.clear();
-   }
-
-   public static void previewingCursedTouch(){
-      isPreviewCursedTouch = true;
-      possibilities.clear();
-   }
-
-   public static void previewingSupress(){
-      isPreviewSupress = true;
-      possibilities.clear();
-   }
    
-   public static void notPreviewingHumanArcherTrap(){
-      isPreviewHumanArcherTrap = false;
-   }
-   
-   public static void notPreviewingSupress(){
-      isPreviewSupress = false;
-   }
-   
-   public static void notPreviewingCursedTouch(){
-      isPreviewCursedTouch = false;
+   public delegate void SkillFunction(Terrain terrain);
+   public static SkillFunction overrideFunction;
+
+   static bool isOverriding = false;
+
+   public static void overrideClick(SkillFunction func){
+      isOverriding = true;
+      selectCreature(null);
+      overrideFunction = func;
    }
 
-   public static void notPreviewingCorner(){
-      isPreviewCorner = false;
+   public static void newTurn(int turn){
+      selectCreature(null);
    }
-   
-   public static void notPreviewingHumanHeroFortress(){
-      isPreviewHumanHeroFortress = false;
+
+   private static void clearAll(){
+      if(possibilities != null)
+         possibilities.clear();
+      if(attackPossibilities != null)
+         attackPossibilities.clear();
    }
 
    private static void selectCreature(Creature creature) {
-      if (possibilities != null)
-         creatureClicked.mouseUp(possibilities);
+      if (possibilities != null){
+         clearAll();
+      }
       creatureClicked = creature;
-      if (creature != null)
-         possibilities = creatureClicked.mouseDown();
-      else
+      if (creature != null){
+         int ap = creature.actionPoints;
+         int range = creature.attackRange;
+         if(creature is HumanKnight && creature.terrain is Plains)
+            ap++;
+         if(creature is HumanSiege){
+            if((creature as HumanSiege).isMounted)
+               ap = 0;
+            else
+               range = 0;
+         }
+         if(creature is UndeadSiege){
+            if((creature as UndeadSiege).isMounted)
+               ap = 0;
+            else
+               range = 0;
+         }
+         possibilities = creature.terrain.expandByAP(ap);
+         possibilities.paint(Color.red);
+         attackPossibilities = creature.terrain.expandByDistance(range);
+         for(int aux = 0; aux < attackPossibilities.creatures.Count; aux ++){
+            Creature targetCreature = attackPossibilities.creatures[aux].second;
+            if(targetCreature.team != creature.team){
+               targetCreature.terrain.setColor(Color.blue);
+            }
+         }
+      }
+      else{
          possibilities = null;
+         attackPossibilities = null;
+      }
       guiController.selectCreature(creature);
    }
 
    public static void clickTerrain(Terrain terrain) {
-      if(isPreviewHumanArcherTrap){
-         Creature creature = creatureClicked;
+      if(creatureClicked is UndeadKnight && terrain is Mountain){
          selectCreature(null);
-         (creature as HumanArcher).trySetTrap(terrain);
          return;
       }
-      if(isPreviewHumanHeroFortress){
-         Creature creature = creatureClicked;
-         selectCreature(null);
-         (creature as HumanHero).trySetFortress(terrain);
-         return;
-      }
-      if(isPreviewCorner){
-         Creature creature = creatureClicked;
-         selectCreature(null);
-         (creature as HumanHero).tryCorner(terrain);
-         return;
-      }
-      if(isPreviewCursedTouch){
-         Creature creature = creatureClicked;
-         selectCreature(null);
-         (creature as UndeadSoldier).tryCursedTouch(terrain);
-         return;
-      }
-      if(isPreviewSupress){
-         Creature creature = creatureClicked;
-         selectCreature(null);
-         (creature as UndeadSiege).trySupress(terrain);
+      if(isOverriding){
+         isOverriding = false;
+         overrideFunction(terrain);
          return;
       }
       if (creatureClicked == null) {
@@ -109,16 +88,23 @@ public class GameController {
       }
       else {
          Trio<int, int, Terrain> t;
+         if(attackPossibilities.hasCreature(terrain.creature)){
+            if(terrain.creature.team != creatureClicked.team){
+               creatureClicked.attack(terrain.creature);
+               selectCreature(creatureClicked);
+            }
+            else{
+               selectCreature(terrain.creature);
+            }
+         }
          if (possibilities.tryGetTerrain(terrain.x, terrain.y, out t)) {
             if (terrain.creature == null) {
                creatureClicked.move(terrain.x, terrain.y, t.second);
                selectCreature(null);
             }
             else if (terrain.creature == creatureClicked) selectCreature(null);
-            else if (terrain.creature.team != creatureClicked.team && t.first <= creatureClicked.attackRange) {
-               creatureClicked.attack(terrain.creature);
-               selectCreature(creatureClicked);
-            }
+            else if (terrain.creature.team == creatureClicked.team)
+               selectCreature(terrain.creature);
          }
          else if (terrain.creature != null && terrain.creature.team == TurnController.turn)
             selectCreature(terrain.creature);

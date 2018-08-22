@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class HumanArcher : Creature {
    public static GameObject prefab;
-
-   const string _name = "Archer";
-   const string _teamName = "Humans";
-   static string[] _skillsNames = new string[1] {"Armadilha de Rede"};
-   static string[] _skillsDescriptions = new string[1] { @"Armadilha de rede: (Cd = 6) (Ap = 1) (alcance = 1)
-Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invisível. Tal armadilha ira paralisar o alvo impedindo de se movimentar no próximo turno do jogador. A armadilha em si dura 15 turnos.
-" };
-   
    const int _maxHealth = 300;
    const int _maxActionPoints = 3;
    const int _baseDodge = 10;
@@ -20,25 +12,24 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
    const int _attackDamage = 60;
    const int _attackRange = 2;
 
-   const int _trapMaxCooldown = 6;
-   const int _trapAPCost = 1;
+   const int _maxTrapCooldown = 6;
+   const int _minTrapAP = 1;
+   private Surroundings preview = null;
 
    private bool movedLastTurn = true;
    private bool movedThisTurn = false;
-   private int trapCooldown = 0;
-   private List<Creature> enemiesInTheBorder;
-   private Surroundings preview = null;
 
-   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
-      enemiesInTheBorder = new List<Creature>();
+   public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+      skills[0] = new Skill("Armadilha de Rede", "Armadilha de rede: (Cd = 6) (Ap = 1) (alcance = 1\n\nColoca uma armadilha no chão que é visível por 1 turno e depois se torna invisível. Tal armadilha ira paralisar o alvo impedindo de se movimentar no próximo turno do jogador. A armadilha em si dura 15 turnos.\n", previewTrap, this, _minTrapAP, _maxTrapCooldown);
    }
 
    public override void newTeamTurn() {
       base.newTeamTurn();
+
       movedLastTurn = movedThisTurn;
       movedThisTurn = false;
+
       if (!movedLastTurn) this.attackRange = _attackRange + 1;
-      if(trapCooldown > 0) trapCooldown --;
       else this.attackRange = _attackRange;
    }
 
@@ -47,52 +38,40 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
       movedThisTurn = true;
    }
 
-   public override Surroundings mouseDown() {
-      Surroundings surroundings = base.mouseDown();
-
-      if (movedLastTurn) return surroundings;
-
-      foreach (var item in surroundings.creatures) {
-         if (item.first == _attackRange + 1)
-            enemiesInTheBorder.Add(item.second);
-      }
-      return surroundings;
-   }
-
    public override void attack(Creature victim) {
-      if (!movedLastTurn && enemiesInTheBorder.Contains(victim)) {
-         attackDamage /= 2;
-         base.attack(victim);
-         attackDamage = _attackDamage;
+      if (!movedLastTurn) {
+         Surroundings surroundings = terrain.expandByDistance(attackRange);
+
+         for(int aux = 0; aux < surroundings.creatures.Count; aux ++){
+            Pair<int, Creature> target = surroundings.creatures[aux];
+            if(target.second == victim){
+               if(target.first == 3){
+                  int buffer = attackDamage;
+                  attackDamage /= 2;
+                  base.attack(victim);
+                  attackDamage = buffer;
+                  return;
+               }
+               break;
+            }
+         }
       }
-      else {
-         base.attack(victim);
-      }
+      base.attack(victim);
    }
 
    //public Surroundings previewTrap(){
    public void previewTrap(){
-      if(trapCooldown > 0){
-         Debug.Log("Wait more " + trapCooldown + " turns");
-         preview = null;
-         return;
-      }
-      if(!useActionPoints(_trapAPCost)){
-         Debug.Log("Not enough action points");
-         preview = null;
-         return;
-      }
+      if(!skills[0].canUse()) return;
       Debug.Log("Previewing trap");
       preview = terrain.expandByDistance(terrain.movePointsRequired);
-      GameController.previewingHumanArcherTrap();
-      preview.paint(new Color(255, 255, 0));
+      GameController.overrideClick(trySetTrap);
+      preview.paint(Color.blue);
    }
 
    public void setTrap(int x, int y){
       Debug.Log("Setting trap");
       new HumanArcherTrap(x, y, team);
-      actionPoints --;
-      trapCooldown = _trapMaxCooldown;
+      skills[0].use();
    }
 
    public void trySetTrap(Terrain terrain){
@@ -108,6 +87,5 @@ Coloca uma armadilha no chão que é visível por 1 turno e depois se torna invi
       else Debug.Log("position out of range");
       preview.clear();
       preview = null;
-      GameController.notPreviewingHumanArcherTrap();
    }
 }

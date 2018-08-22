@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Creature {
-   public string name;
-   public string teamName;
-   public string[] skills_names;
-   public string[] skill_description;
    public int health;
    public int maxHealth;
    public int attackDamage;
@@ -16,6 +12,8 @@ public abstract class Creature {
    public int defenseHeal;
    public int defenseResistance;
    public int dodge;
+
+   public Skill[] skills = new Skill[3];
 
    public int snareDuration = 0;
 
@@ -32,7 +30,7 @@ public abstract class Creature {
 
    public static List<Creature> allCreatures = new List<Creature>();
 
-   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10, string name = null, string teamName = null, string[] skillsN = null, string[] skills_desc = null) {
+   public Creature(GameObject prefab, int x, int y, int maxActionPoints, int team, int maxHealth = 10, int attackDamage = 1, int attackRange = 1, int defenseHeal = 10, int defenseResistance = 10, int dodge = 10) {
       this.x = x;
       this.y = y;
       this.team = team;
@@ -44,10 +42,6 @@ public abstract class Creature {
       this.defenseHeal = defenseHeal;
       this.defenseResistance = defenseResistance;
       this.dodge = dodge;
-      this.name = name;
-      this.teamName = teamName;
-      this.skills_names = skillsN;
-      this.skill_description = skills_desc;
 
       this.terrain = Terrain.allTiles[y][x];
       this.terrain.creature = this;
@@ -63,6 +57,44 @@ public abstract class Creature {
 
       this.actionPoints = maxActionPoints;
       allCreatures.Add(this);
+
+      for(int aux = 0; aux < this.skills.Length; aux ++){
+         this.skills[aux] = null;
+      }
+   }
+
+   public virtual string getRaceName(){
+      if(this is HumanArcher || this is HumanHero || this is HumanKnight || this is HumanSiege || this is HumanSoldier)
+         return "Human";
+      if(this is UndeadArcher || this is UndeadHero || this is UndeadKnight || this is UndeadSiege || this is UndeadSoldier)
+         return "Undead";
+      return "unknown";
+   }
+
+   public virtual string getName(){
+      if(this is HumanHero)
+         return "Sir Godfrey";
+      if(this is HumanArcher)
+         return "Imperial archer";
+      if(this is HumanSiege)
+         return "Trebuchet";
+      if(this is HumanKnight)
+         return "Royal knight";
+      if(this is HumanSoldier)
+         return "Squire";
+
+      if(this is UndeadSoldier)
+         return "Skeleton warrior";
+      if(this is UndeadArcher)
+         return "Vile shooters";
+      if(this is UndeadKnight)
+         return "Spectral knights";
+      if(this is UndeadSiege)
+         return "Obelisk";
+      if(this is UndeadHero)
+         return "Zarasputim";
+
+      return "unknown";
    }
 
    public virtual bool defend() {
@@ -111,6 +143,10 @@ public abstract class Creature {
       }
       hasAttacked = false;
       isDefending = false;
+
+      for(int aux = 0; aux < skills.Length && skills[aux] != null; aux ++){
+         skills[aux].newTeamTurn();
+      }
    }
 
    public virtual void newTurn(int turnNumber) {
@@ -130,10 +166,18 @@ public abstract class Creature {
          Debug.Log("But the attack was dodged!");
          return;
       }
-
-      if((attacker.terrain is Fortress && terrain is Fortress) || attacker is HumanSiege || attacker is UndeadSiege){
-         Debug.Log("fortress bonus denied");
-         myDefense -= (terrain as Fortress).defenseBonus;
+      if(terrain is Fortress || terrain.fortress != null){
+         if(
+            attacker is HumanSiege ||
+            attacker is UndeadSiege ||
+            (attacker.terrain is Fortress || attacker.terrain.fortress != null)
+         ){
+            Debug.Log("fortress bonus denied");
+            if(terrain is Fortress)
+               myDefense -= (terrain as Fortress).defenseBonus;
+            else
+               myDefense -= terrain.fortress.additionalDefense;
+         }
       }
 
       if(myDefense < 0) myDefense = 0;
@@ -203,15 +247,5 @@ public abstract class Creature {
       foreach(Trap trap in trapsInRange){
          trap.activate(this);
       }
-   }
-
-   public virtual Surroundings mouseDown() {
-      Surroundings surroundings = terrain.expandByAP(this.actionPoints);
-      surroundings.paint(Color.red);
-      return surroundings;
-   }
-
-   public virtual void mouseUp(Surroundings surroundings) {
-      surroundings.clear();
    }
 }

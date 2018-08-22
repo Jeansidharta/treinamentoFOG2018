@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class HumanSiege : Creature {
    public static GameObject prefab;
-
-   const string _name = " Siege";
-   const string _teamName = "Humans";
    const int _maxHealth = 300;
    const int _maxActionPoints = 3;
    const int _baseDodge = 0;
@@ -14,27 +11,29 @@ public class HumanSiege : Creature {
    const int _defenseResistance = 10;
    const int _attackDamage = 70;
    const int _attackRange = 3;
-   static string[] _skillsNames = new string[3] { "Montar", "Inversor", "Sistema anti-colisão" };
-   static string[] _skillsDescriptions = new string[3] { @"Montar (AP = 2):
-Para uma unidade de catapulta ser capaz de atirar ela precisa primeiro se montar o que custa AP para fazer. Depois de montada a catapulta pode atacar normalmente desde que ela não se movimente, se a catapulta se mover ela tem que se montar novamente.", @"Inversor: (CD = 4) (AP = 3) (Alcance = nulo)
-Inverte o dano em área, ao invés de causar 70 ao alvo principal e 50 aos secundários, o trebuchet causará 50 ao alvo principal e 70 aos secundários.", @"Sistema anti-colisão: (CD = 6) (AP = 2) (Alcance = 1)
-Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos para longe da maneira mais reta possível.
-" };
 
-    const int _invertMaxCD = 4;
-   const int _pushMaxCD = 6;
-   const int _pushAPCost = 2;
+   const int _maxInvertCD = 4;
+   const int _minInvertAP = 3;
+
+   const int _maxPushCD = 6;
+   const int _minPushAP = 2;
+
+   const int _minMountAP = 2;
+   const int _maxMountCooldown = 0;
+
    const int _splashDamage = 50;
-   const int _mountAPCost = 2;
    const int _pushAmmount = 3;
    const int _pushRange = 1;
 
-   private int pushCD = 0;
-   private bool isMounted = false;
-   private int invertCD = 0;
+   public bool isMounted = false;
    private bool isInverted = false;
 
-   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
+   public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+      skills[0] = new Skill("Montar", "Montar (AP = 2):\n\nPara uma unidade de catapulta ser capaz de atirar ela precisa primeiro se montar o que custa AP para fazer. Depois de montada a catapulta pode atacar normalmente desde que ela não se movimente, se a catapulta se mover ela tem que se montar novamente.\n", toggleMount, this, _minMountAP, _maxMountCooldown);
+      
+      skills[1] = new Skill("Inversor", "Inversor: (CD = 4) (AP = 3) (Alcance = nulo)\n\nInverte o dano em área, ao invés de causar 70 ao alvo principal e 50 aos secundários, o trebuchet causará 50 ao alvo principal e 70 aos secundários.\n", habilityInvert, this, _minInvertAP, _maxInvertCD);
+      
+      skills[2] = new Skill("Sistema anti-colisão", "Sistema anti-colisão: (CD = 6) (AP = 2) (Alcance = 1)\n\nRepele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos para longe da maneira mais reta possível.\n", habilityPush, this, _minPushAP, _maxPushCD);
    }
 
    public override void attack(Creature victim) {
@@ -64,10 +63,7 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
    }
 
    public void toggleMount() {
-      if (!useActionPoints(_mountAPCost)) {
-         Debug.Log("Not enough action points");
-         return;
-      }
+      if(!skills[0].use()) return;
       isMounted = !isMounted;
       if (isMounted)
          Debug.Log("Mounted");
@@ -75,18 +71,8 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
          Debug.Log("Unmounted");
    }
 
-   public override void newTeamTurn() {
-      base.newTeamTurn();
-      if (invertCD > 0) invertCD--;
-      if (pushCD > 0) pushCD--;
-   }
-
    public void habilityInvert() {
-      if (invertCD > 0) {
-         Debug.Log("wait " + invertCD + " turns to use this hability");
-         return;
-      }
-      invertCD = _invertMaxCD;
+      if(!skills[1].use()) return;
       Debug.Log("inverted damage");
       isInverted = true;
    }
@@ -105,15 +91,7 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
    }
 
    public void habilityPush() {
-      if (pushCD > 0) {
-         Debug.Log("wait " + pushCD + " turns to use this hability");
-         return;
-      }
-      if (!useActionPoints(_pushAPCost)){
-         Debug.Log("not enough action points");
-         return;
-      }
-      pushCD = _pushMaxCD;
+      if(!skills[2].use()) return;
       Debug.Log("Pushed!");
 
       Surroundings surroundings = terrain.expandByDistance(_pushRange);
@@ -128,18 +106,5 @@ Repele um inimigo que está diretamente ao lado do trebuchet em 3 hexágonos par
          base.move(x, y, distance);
       else
          Debug.Log("Cant move while mounted");
-   }
-
-   public override Surroundings mouseDown() {
-      Surroundings surroundings;
-      int ap = actionPoints;
-      if (isMounted) {
-         if (actionPoints > 0) {
-            actionPoints = attackRange;
-         }
-      }
-      surroundings = base.mouseDown();
-      actionPoints = ap;
-      return surroundings;
    }
 }

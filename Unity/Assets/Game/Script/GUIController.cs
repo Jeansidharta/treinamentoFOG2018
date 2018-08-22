@@ -39,7 +39,8 @@ public class GUIController : MonoBehaviour {
       panel = GameObject.FindGameObjectsWithTag("DescriptionPanel");
       skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
       skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
-      skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray(); 
+      skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray();
+      selectBlank();
    }
 
    public void selectCreature(Creature creature){
@@ -49,81 +50,52 @@ public class GUIController : MonoBehaviour {
          return;
       }
       //Assigning Selected creature's value to diplay on GUI
-      text_name.text = "Name: " + creature.name;
-      text_team.text = "Team: " + creature.teamName;
+      text_name.text = "Name: " + creature.getName();
+      text_team.text = "Team: " + creature.getRaceName();
       text_HP.text = "HP: " + creature.health.ToString();
       text_AP.text = "AP: " + creature.actionPoints.ToString();
       text_DE.text = "DE: " + creature.defenseResistance.ToString();
       text_AT.text = "AT: " + creature.attackDamage.ToString();
 
       //Checking number of skills and displaying their names and description on GUI
-      for(int skillCount = 0; skillCount < creature.skills_names.Length; skillCount++){
-         skillGO[skillCount].SetActive(true);
-         skillN[skillCount].GetComponent<Text>().text = creature.skills_names[skillCount];
-         skillD[skillCount].GetComponent<Text>().text = creature.skill_description[skillCount];
+      for(int aux = 0; aux < creature.skills.Length; aux++){
+         if(creature.skills[aux] == null){
+            skillGO[aux].SetActive(false);
+            skillN[aux].GetComponent<Text>().text = null;
+            skillD[aux].GetComponent<Text>().text = null;
+            continue;
+         }
+         skillGO[aux].SetActive(true);
+         var script = skillGO[aux].GetComponent<DisplaySkill>();
+         script.skillFunction = creature.skills[aux].function;
+         script.creature = creature;
+         skillN[aux].GetComponent<Text>().text = creature.skills[aux].name;
+         skillD[aux].GetComponent<Text>().text = creature.skills[aux].description;
       }
-      for(int skillCount = creature.skills_names.Length; skillCount < 3; skillCount++){
-         skillGO[skillCount].SetActive(false);
-         skillN[skillCount].GetComponent<Text>().text = null;
-         skillD[skillCount].GetComponent<Text>().text = null;
-      }
-
-      //text_EV.text = "EV: " + creatureClicked.evasion.ToString();
-
+      
       //Assigning Selected creature's image file to display on GUI
-      //Humans Team
-      var display0 = skillGO[0].GetComponent<DisplaySkill>();
-      var display1 = skillGO[1].GetComponent<DisplaySkill>();
-      var display2 = skillGO[2].GetComponent<DisplaySkill>();
-      display0.skillFunction = null;
-      display1.skillFunction = null;
-      display2.skillFunction = null;
-      display0.creature = creature;
-      display1.creature = creature;
-      display2.creature = creature;
-      if (creature is HumanArcher){
+      if (creature is HumanArcher)
          unitImgObject.GetComponent<Image>().sprite = Harcher;
-         display0.skillFunction = (creature as HumanArcher).previewTrap;
-      }
-      else if (creature is HumanHero){
+      else if (creature is HumanHero)
          unitImgObject.GetComponent<Image>().sprite = HHero;
-         display0.skillFunction = (creature as HumanHero).previewFortress;
-         display1.skillFunction = (creature as HumanHero).previewCorner;
-         display2.skillFunction = (creature as HumanHero).lastResource;
-      }
-      else if (creature is HumanKnight){
+      else if (creature is HumanKnight)
          unitImgObject.GetComponent<Image>().sprite = HKnight;
-         display0.skillFunction = (creature as HumanKnight).assault;
-      }
-      else if (creature is HumanSiege){
+      else if (creature is HumanSiege)
          unitImgObject.GetComponent<Image>().sprite = HSiege;
-         display0.skillFunction = (creature as HumanSiege).toggleMount;
-         display1.skillFunction = (creature as HumanSiege).habilityInvert;
-         display2.skillFunction = (creature as HumanSiege).habilityPush;
-      }
-      else if (creature is HumanSoldier){
+      else if (creature is HumanSoldier)
          unitImgObject.GetComponent<Image>().sprite = HSoldier;
-         display0.skillFunction = (creature as HumanSoldier).raiseShields;
-      }
-      else if(creature is UndeadArcher){
+      else if(creature is UndeadArcher)
          unitImgObject.GetComponent<Image>().sprite = UDarcher;
-         display0.skillFunction = (creature as UndeadArcher).toxic;
-      }
-      else if (creature is UndeadHero){
+      else if (creature is UndeadHero)
          unitImgObject.GetComponent<Image>().sprite = UDHero;
-      }
-      else if (creature is UndeadKnight){
+      else if (creature is UndeadKnight)
          unitImgObject.GetComponent<Image>().sprite = UDKnight;
-      }
-      else if (creature is UndeadSiege){
+      else if (creature is UndeadSiege)
          unitImgObject.GetComponent<Image>().sprite = UDSiege;
-         display1.skillFunction = (creature as UndeadSiege).previewSupress;
-      }
-      else if (creature is UndeadSoldier){
+      else if (creature is UndeadSoldier)
          unitImgObject.GetComponent<Image>().sprite = UDSoldier;
-         display0.skillFunction = (creature as UndeadSoldier).previewCursedTouch;
-      }
    }
+
    public void selectBlank(){
       text_name.text = "Name: ";
       text_team.text = "Team: ";

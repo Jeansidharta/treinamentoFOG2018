@@ -184,14 +184,19 @@ public class Terrain {
       //this.creature.mouseUp();
    }
 
-   private void expandRecursiveByAP(int dist, int AP, int maxAP, Surroundings surroundings) {
+   private void expandRecursiveByAP(int dist, int AP, int maxAP, Surroundings surroundings, bool isUndeadHorse = false) {
       if (AP > maxAP) return;
       if (!surroundings.addOrUpdateTerrainForSmallerValues(this, x, y, dist, AP))
          return;
+      if(creature != null && dist != 0 && !isUndeadHorse) return;
       for (int aux = 0; aux < this.neighboursCount; aux++) {
-         if (this.neighbours[aux].movePointsRequired != -1) {
+         if (this.neighbours[aux].movePointsRequired != -1 || isUndeadHorse) {
             neighbours[aux].expandRecursiveByAP(
-               dist + 1, AP + movePointsRequired, maxAP, surroundings
+               dist + 1,
+               AP + (movePointsRequired == -1? 1 : movePointsRequired),
+               maxAP,
+               surroundings,
+               dist == 0 && creature is UndeadKnight? true: isUndeadHorse
             );
          }
       }
@@ -211,13 +216,13 @@ public class Terrain {
    }
 
    public Surroundings expandByAP(int maxAp) {
-      Surroundings surroundings = new Surroundings();
+      Surroundings surroundings = new Surroundings(this);
       this.expandRecursiveByAP(0, 0, maxAp, surroundings);
       return surroundings;
    }
    
    public Surroundings expandByDistance(int maxDist) {
-      Surroundings surroundings = new Surroundings();
+      Surroundings surroundings = new Surroundings(this);
       this.expandRecursiveByDistance(0, 0, maxDist, surroundings);
       return surroundings;
    }
@@ -236,12 +241,5 @@ public class Terrain {
 
    public void setColor(Color color) {
       renderer.material.color = color;
-   }
-
-   //sets all neighbours red;
-   public void setNeighboursRed() {
-      for (int aux = 0; aux < this.neighboursCount; aux++) {
-         this.neighbours[aux].setColor(Color.red);
-      }
    }
 }

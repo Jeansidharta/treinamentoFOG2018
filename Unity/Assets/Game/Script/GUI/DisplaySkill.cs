@@ -12,8 +12,7 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Creature creature = null;
     [SerializeField] GameObject panel;
 
-    public delegate void SkillFunction();
-    public SkillFunction skillFunction;
+    public Skill.SkillFunction skillFunction;
 
     private bool Display;
 

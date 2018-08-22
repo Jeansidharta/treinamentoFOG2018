@@ -4,19 +4,7 @@ using UnityEngine;
 
 public class UndeadHero : Creature {
    public static GameObject prefab;
-
-   const string _name = "Zarasputim";
-   const string _teamName = "Undeads";
-   static string[] _skillsNames = new string[3] { "Renascer", "Possessão", "Investida macabra" };
-   static string[] _skillsDescriptions = new string[3] { @"Renascer: (CD = 7) (AP = 3) (Alcance = 1)
-Ao usar renascer Zarasputin invoca uma unidade do tipo “Guerreiro esquelético” da classe infantaria ao seu lado. Essa unidade inicia com 0 de AP, retornando depois para o seu nível padrão.
-", @"Possessão: (CD = 7) (Ap = 3) (Alcance = 3)
-Ao usar possessão o jogador selecionará um inimigo a 3 de distância ou menos e poderá move-lo para qualquer lugar a 3 de distância ou menos de onde essa unidade está.
-", @"Investida macabra: (CD = 10) (AP = 5) (Alcance = nulo)
-Por um turno dobre a quantidade de AP de todas as suas outras unidades.
-" };
-
-    const int _maxHealth = 900;
+   const int _maxHealth = 900;
    const int _maxActionPoints = 5;
    const int _baseDodge = 15;
    const int _defenseHeal = 50;
@@ -24,7 +12,93 @@ Por um turno dobre a quantidade de AP de todas as suas outras unidades.
    const int _attackDamage = 75;
    const int _attackRange = 2;
 
-   public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
+   const int _maxReviveCooldown = 7;
+   const int _minReviveAP = 3;
+   private Surroundings reviveSurroundings = null;
 
+   const int _maxPossessCooldown = 7;
+   const int _minPossessAP = 3;
+   private Surroundings possessSurroundings = null;
+
+   const int _maxOnslaughtCooldown = 10;
+   const int _minOnslaughtAP = 5;
+
+   public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+      skills[0] = new Skill("Renascer", "Renascer: (CD = 7) (AP = 3) (Alcance = 1)\n\nAo usar renascer Zarasputin invoca uma unidade do tipo “Guerreiro esquelético” da classe infantaria ao seu lado. Essa unidade inicia com 0 de AP, retornando depois para o seu nível padrão.\n", previewRevive, this, _minReviveAP, _maxReviveCooldown);
+      
+      skills[1] = new Skill("Possessão", "Possessão: (CD = 7) (Ap = 3) (Alcance = 3)\n\nAo usar possessão o jogador selecionará um inimigo a 3 de distância ou menos e poderá move-lo para qualquer lugar a 3 de distância ou menos de onde essa unidade está.\n", previewPossess, this, _minPossessAP, _maxPossessCooldown);
+      
+      skills[2] = new Skill("Investida macabra", "Investida macabra: (CD = 10) (AP = 5) (Alcance = nulo)\n\nPor um turno dobre a quantidade de AP de todas as suas outras unidades.\n", onslaught, this, _minOnslaughtAP, _maxOnslaughtCooldown);
+   }
+
+   public void previewRevive(){
+      if(!skills[0].canUse()) return;
+      reviveSurroundings = terrain.expandByDistance(1);
+      GameController.overrideClick(tryRevive);
+      reviveSurroundings.paint(Color.blue);
+   }
+
+   public void tryRevive(Terrain terrain){
+      reviveSurroundings.clear();
+      if(terrain.creature != null || terrain is Mountain){
+         Debug.Log("invalid target");
+         return;
+      }
+      if(!reviveSurroundings.hasTerrain(terrain.x, terrain.y)){
+         Debug.Log("out of range");
+         return;
+      }
+      skills[0].use();
+      UndeadSoldier soldier = new UndeadSoldier(terrain.x, terrain.y, team);
+      soldier.actionPoints = 0;
+   }
+
+   public void previewPossess(){
+      if(!skills[1].canUse()) return;
+      possessSurroundings = terrain.expandByDistance(3);
+      GameController.overrideClick(tryPossess);
+      possessSurroundings.paint(Color.blue);
+   }
+
+   public void tryPossess(Terrain terrain){
+      possessSurroundings.clear();
+
+      if(!possessSurroundings.hasTerrain(terrain.x, terrain.y)){
+         Debug.Log("out of range");
+         return;
+      }
+      if(terrain.creature == null){
+         Debug.Log("invalid target");
+         return;
+      }
+      GameController.overrideClick(tryPossess2);
+      possessSurroundings = terrain.expandByDistance(3);
+      possessSurroundings.paint(Color.blue);
+   }
+
+   public void tryPossess2(Terrain terrain){
+      possessSurroundings.clear();
+      if(!possessSurroundings.hasTerrain(terrain.x, terrain.y)){
+         Debug.Log("out of range");
+         return;
+      }
+      if(terrain.creature != null){
+         Debug.Log("invalid target");
+         return;
+      }
+
+      skills[1].use();
+      possessSurroundings.origin.creature.setPos(terrain.x, terrain.y);
+      possessSurroundings = null;
+   }
+
+   public void onslaught(){
+      if(!skills[2].use()) return;
+      for(int aux = 0; aux < Creature.allCreatures.Count; aux ++){
+         Creature creature = Creature.allCreatures[aux];
+         if(creature.team == team){
+            creature.actionPoints += creature.maxActionPoints;
+         }
+      }
    }
 }

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class UndeadKnight : Creature {
    public static GameObject prefab;
-
-   const string _name = "Knight";
-   const string _teamName = "Undeads";
-   static string[] _skillsNames = new string[1] {"Imaterial"};
-   static string[] _skillsDescriptions = new string[1] { @"Imaterial: (Cd = 4) (AP = 0) (Alcance = nulo)
-Durante o próximo turno do inimigo o cavaleiro espectral não poderá receber dano ou ser alvo de qualquer habilidade.
-" };
-
-    const int _maxHealth = 250;
+   const int _maxHealth = 250;
    const int _maxActionPoints = 5;
    const int _baseDodge = 20;
    const int _defenseHeal = 20;
@@ -20,13 +12,20 @@ Durante o próximo turno do inimigo o cavaleiro espectral não poderá receber d
    const int _attackDamage = 60;
    const int _attackRange = 1;
 
-   public UndeadKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge, _name, _teamName, _skillsNames, _skillsDescriptions) {
+   const int _minImaterialAP = 0;
+   const int _maxImaterialCooldown = 4;
 
+   public UndeadKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+      skills[0] = new Skill("Imaterial", "Imaterial: (Cd = 4) (AP = 0) (Alcance = nulo)\n\nDurante o próximo turno do inimigo o cavaleiro espectral não poderá receber dano ou ser alvo de qualquer habilidade.\n", imaterial, this, _minImaterialAP, _maxImaterialCooldown);
    }
 
    public override void attack(Creature victim) {
       int ap = this.actionPoints - 1;
       base.attack(victim);
       this.actionPoints = ap;
+   }
+
+   public void imaterial(){
+      
    }
 }
