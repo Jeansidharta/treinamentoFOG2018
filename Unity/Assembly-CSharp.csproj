@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\consoledisplayer.cs" />
     <Compile Include="Assets\Game\Script\auxiliarScripts\cameraControl.cs" />
     <Compile Include="Assets\Game\Script\auxiliarScripts\cellControl.cs" />
     <Compile Include="Assets\Game\Script\auxiliarScripts\nextTurnButtonControll.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Game\Script\Classes\Creatures\Undead\undeadSiege.cs" />
     <Compile Include="Assets\Game\Script\Classes\Creatures\Undead\undeadSoldier.cs" />
     <Compile Include="Assets\Game\Script\Classes\Pair.cs" />
+    <Compile Include="Assets\Game\Script\Classes\Skill.cs" />
     <Compile Include="Assets\Game\Script\Classes\Surroundings.cs" />
     <Compile Include="Assets\Game\Script\Classes\Terrain.cs" />
     <Compile Include="Assets\Game\Script\Classes\Terrains\Forest.cs" />
