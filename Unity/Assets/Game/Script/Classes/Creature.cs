@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Creature {
    public int health;
@@ -12,6 +13,8 @@ public abstract class Creature {
    public int defenseHeal;
    public int defenseResistance;
    public int dodge;
+
+   public healthBar hp_bar;
 
    public Skill[] skills = new Skill[3];
 
@@ -48,8 +51,9 @@ public abstract class Creature {
       this.spriteInstance = MonoBehaviour.Instantiate(prefab);
       this.spriteInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
       this.spriteInstance.transform.position = this.terrain.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
+      this.hp_bar = this.spriteInstance.GetComponent<healthBar>();
 
-      if(terrain is Fortress)
+        if (terrain is Fortress)
          this.defenseResistance += (terrain as Fortress).defenseBonus;
 
       else if(terrain is Forest)
@@ -114,6 +118,7 @@ public abstract class Creature {
 
    public virtual void changeHealth(int ammount) {
       health += ammount;
+      hp_bar.updateHealthBar(health, maxHealth);
       if (health > maxHealth) health = maxHealth;
       if (health <= 0) die();
    }

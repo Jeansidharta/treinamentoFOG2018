@@ -99,6 +99,7 @@
     <Compile Include="Assets\Game\Script\GUI\sliderValue.cs" />
     <Compile Include="Assets\Game\Script\GUI\startBtn.cs" />
     <Compile Include="Assets\Game\Script\GUIController.cs" />
+    <Compile Include="Assets\healthBar.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />

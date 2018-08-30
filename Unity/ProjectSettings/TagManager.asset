@@ -11,6 +11,7 @@ TagManager:
   - WinUI
   - WinImg
   - WinText
+  - Log
   layers:
   - Default
   - TransparentFX

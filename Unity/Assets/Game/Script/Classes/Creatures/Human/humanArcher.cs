@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HumanArcher : Creature {
    public static GameObject prefab;
@@ -74,18 +75,23 @@ public class HumanArcher : Creature {
       skills[0].use();
    }
 
-   public void trySetTrap(Terrain terrain){
-      if(preview.hasTerrain(terrain.x, terrain.y)){
-         if(terrain.creature == null && terrain.trap == null){
-            if(!(terrain is Mountain)){
-               this.setTrap(terrain.x, terrain.y);
+    public void trySetTrap(Terrain terrain)
+    {
+        if (preview.hasTerrain(terrain.x, terrain.y))
+        {
+            if (terrain.creature == null && terrain.trap == null)
+            {
+                if (!(terrain is Mountain))
+                {
+                    this.setTrap(terrain.x, terrain.y);
+                }
+                else Debug.Log("Cant place trap in mountain");
             }
-            else Debug.Log("Cant place trap in mountain");
-         }
-         else Debug.Log("Cant place trap over another creature or trap");
-      }
-      else Debug.Log("position out of range");
-      preview.clear();
-      preview = null;
-   }
+            else Debug.Log("Cant place trap over another creature or trap");
+        }
+        else Debug.Log("position out of range");
+        preview.clear();
+        preview = null;
+    }
+
 }
