@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController {
+public class GameController : MonoBehaviour {
    static Creature creatureClicked = null;
    public static Surroundings possibilities = null;
    public static Surroundings attackPossibilities = null;
@@ -13,7 +13,12 @@ public class GameController {
 
    static bool isOverriding = false;
 
-   public static void overrideClick(SkillFunction func){
+    private void Update()
+    {
+        guiController.console.display();
+    }
+
+    public static void overrideClick(SkillFunction func){
       isOverriding = true;
       selectCreature(null);
       overrideFunction = func;

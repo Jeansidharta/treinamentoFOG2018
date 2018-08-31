@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 2166
+  controlID: 9
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 2296
+  controlID: 10
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 2297
+  controlID: 11
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -363,23 +363,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7c0e0000
-    m_LastClickedID: 3708
-    m_ExpandedIDs: de52f3ffe852f3fff052f3ff266cf6ff306cf6ff386cf6ff8059f7ff8a59f7ff9259f7ff9611f8ff9811f8ffa013f8ffa213f8ffc815f8ffde15f8ffe015f8ff321af8ff4a1af8ffe42ff8fffa2ff8fffc2ff8ff94b7f8ff96b7f8ff00b9f8ff6ebaf8ff70baf8ffa6d7f8ffb0d7f8ff3ae4f8ff8812faff9212faff9812faffb235fbff0437fbff3e38fbff9039fbffe03afbffeaa2fcfff0a2fcfffa79fdff646bfefff0fbffff00000000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: e022eefffa22eefffc22eeffe8f6efffeaf6efff669af0ff809af0ff829af0ff30caf0ff40caf0ff4acaf0ff52caf0ffceb2f1ffe4b2f1ffe8b2f1ff0c49f2ff0e49f2ff1e49f2ff884af2ff9e4af2ffa24af2ff1601f3ffc60af3ffd278f3ff0c78f4ffea10f5fff210f5ff0211f5ff0411f5fff0fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: archerTrap
-      m_OriginalName: archerTrap
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -476586
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -415,14 +415,14 @@ MonoBehaviour:
     height: 343
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1017.0395615694864
+  lastFramingTime: 5022.887185667932
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 32.83934, y: 17.57913, z: -0.16853712}
+    m_Target: {x: 2.1211762, y: -1.3121446, z: -0.05588965}
     speed: 2
-    m_Value: {x: 32.83934, y: 17.57913, z: -0.16853712}
+    m_Value: {x: 2.1211762, y: -1.3121446, z: -0.05588965}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -454,9 +454,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 11.311034
+    m_Target: 0.23566692
     speed: 2
-    m_Value: 11.311034
+    m_Value: 0.23566692
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -530,20 +530,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Game/Script
+    - Assets/Game/Prefab/Creatures/Humans
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Game/Script
+  - Assets/Game/Prefab/Creatures/Humans
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\tmsil\Documents\GitHub\treinamentoFOG2018\Unity
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 23}
-    m_SelectedIDs: 9a0c0000
-    m_LastClickedID: 3226
-    m_ExpandedIDs: 00000000040a0000080a0000240a00006e0a0000a20a0000100b00002e0b0000580b00006a0b0000080c00004c0c0000ca30000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 43}
+    m_SelectedIDs: 280a0000
+    m_LastClickedID: 2600
+    m_ExpandedIDs: 00000000060a0000740a0000aa0a0000200b00003e0b0000680b00007a0b00001a0c00005e0c00001a32000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -571,7 +571,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000040a0000080a0000240a00006e0a0000a20a0000100b00002e0b0000580b00006a0b0000080c00004c0c0000ca30000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000060a00000a0a0000260a0000740a0000aa0a0000200b00003e0b0000680b00007a0b00001a0c00005e0c00001a320000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -599,7 +599,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000e80a0000
+    m_ExpandedInstanceIDs: c6230000e80a000094090000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

@@ -34,7 +34,8 @@ public class GUIController : MonoBehaviour {
    private GameObject WinUI;
    private GameObject winText;
    private GameObject winImg;
-   private GameObject log;
+
+    public consoledisplayer console;
 
     private Creature selectedCreature;
     
@@ -45,18 +46,8 @@ public class GUIController : MonoBehaviour {
       skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
       skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
       skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray();
-      log = GameObject.FindGameObjectWithTag("Log");
       selectBlank();
    }
-    
-    public void consoleDisplay()
-    {
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            log.SetActive(true);
-        }
-        else log.SetActive(false);
-    }
 
     public void selectCreature(Creature creature){
       selectedCreature = creature;

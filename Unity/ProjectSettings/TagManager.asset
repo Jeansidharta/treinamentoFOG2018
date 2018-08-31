@@ -12,6 +12,7 @@ TagManager:
   - WinImg
   - WinText
   - Log
+  - LogPanel
   layers:
   - Default
   - TransparentFX

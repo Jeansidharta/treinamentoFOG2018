@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class consoledisplayer : MonoBehaviour {
 
-    [SerializeField] Text panel;
-
+    private GameObject panel;
     private string[] lines = new string[7];
     private int current_line = 0;
     private GameObject log;
@@ -15,14 +14,9 @@ public class consoledisplayer : MonoBehaviour {
     void Start () {
         for (int i = 0; i < 7; i++) lines[i] = " ";
         log = GameObject.FindGameObjectWithTag("Log");
+        panel = GameObject.FindGameObjectWithTag("LogPanel");
         log.SetActive(false);
 
-    }
-
-    // Update is called once per frame
-    void Update () {
-        updatePanel();
-        consoleDisplay();
     }
 
     void shift()
@@ -33,7 +27,7 @@ public class consoledisplayer : MonoBehaviour {
         }
     }
 
-    void panelLog(string t)
+    public void Log(string t)
     {
         if (current_line > 6)
         {
@@ -45,14 +39,15 @@ public class consoledisplayer : MonoBehaviour {
             lines[current_line] = t;
             current_line++;
         }
+        updatePanel();
     }
 
     void updatePanel()
     {
-        panel.text = lines[0] + lines[1] + lines[2] + lines[3] + lines[4] + lines[5] + lines[6];
+        panel.GetComponentInChildren<Text>().text = lines[0] + lines[1] + lines[2] + lines[3] + lines[4] + lines[5] + lines[6];
     }
 
-    public void consoleDisplay()
+    public void display()
     {
         if (Input.GetKey(KeyCode.Tab))
         {
