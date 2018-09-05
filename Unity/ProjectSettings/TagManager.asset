@@ -13,6 +13,7 @@ TagManager:
   - WinText
   - Log
   - LogPanel
+  - SoundController
   layers:
   - Default
   - TransparentFX

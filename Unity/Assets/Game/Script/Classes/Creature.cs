@@ -253,4 +253,12 @@ public abstract class Creature {
          trap.activate(this);
       }
    }
+
+    public virtual void playAttackSound(GameObject soundctrl)
+    {
+        spriteInstance.GetComponent<AudioSource>().volume = soundctrl.GetComponent<Sound_controller>().mastervol * soundctrl.GetComponent<Sound_controller>().soundfxvol;
+        spriteInstance.GetComponent<AudioSource>().Play();
+    }
+
+    //public virtual void playAttackAnimation() { }
 }

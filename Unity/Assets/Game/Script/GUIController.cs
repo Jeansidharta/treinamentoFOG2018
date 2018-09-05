@@ -46,6 +46,8 @@ public class GUIController : MonoBehaviour {
       skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
       skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
       skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray();
+      WinUI = GameObject.FindGameObjectWithTag("WinUI");
+      WinUI.SetActive(false);
       selectBlank();
    }
 
@@ -117,8 +119,12 @@ public class GUIController : MonoBehaviour {
 
     public void gameOver(int player, int team ){
         //Setting WinUI Active
-        WinUI = GameObject.FindGameObjectWithTag("WinUI");
         WinUI.SetActive(true);
+
+        //Playing win music
+        GameObject soundControl = GameObject.FindGameObjectWithTag("SoundController");
+        WinUI.GetComponent<AudioSource>().volume = soundControl.GetComponent<Sound_controller>().mastervol * soundControl.GetComponent<Sound_controller>().musicvol;
+        WinUI.GetComponent<AudioSource>().Play();
         
         //Setting win text
         winText = GameObject.FindGameObjectWithTag("WinText");
