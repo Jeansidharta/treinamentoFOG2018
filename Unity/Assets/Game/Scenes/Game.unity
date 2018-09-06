@@ -4031,7 +4031,7 @@ GameObject:
   - component: {fileID: 2012101794}
   - component: {fileID: 2012101795}
   m_Layer: 0
-  m_Name: SounController
+  m_Name: SoundController
   m_TagString: SoundController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
