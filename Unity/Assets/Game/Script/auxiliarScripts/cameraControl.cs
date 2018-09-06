@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraControl : MonoBehaviour {
 
-   float scrollAmmount = -1;
+   float scrollAmmount = -100;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,7 +19,7 @@ public class cameraControl : MonoBehaviour {
          Vector3 deltaCamera = new Vector3(-dx, -dy, 0) * -scrollAmmount / 5;
          transform.position += deltaCamera;
       }
-      scrollAmmount += Input.mouseScrollDelta.y;
+      scrollAmmount += Input.mouseScrollDelta.y * 10;
       if (scrollAmmount > -0.5f) scrollAmmount = -0.5f;
       float x = transform.position.x;
       float y = transform.position.y;

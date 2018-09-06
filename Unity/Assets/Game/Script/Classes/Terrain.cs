@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Terrain {
+public class Terrain{
    Renderer renderer;
    public GameObject spriteInstance;
+   public GameObject healthInstance;
    public Terrain[] neighbours = new Terrain[6];
    public int neighboursCount = 0;
 
@@ -18,11 +19,16 @@ public class Terrain {
    public static int terrainHeight;
    public static int terrainWidth;
 
+   public static int _terrainSize = 13;
+
    public Terrain(GameObject prefab, int x, int y, int walkSpeed = 1) {
       this.x = x;
       this.y = y;
       spriteInstance = MonoBehaviour.Instantiate(prefab);
       spriteInstance.transform.position = new Vector3(x + (y % 2 == 0 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
+      var pos = spriteInstance.transform.position;
+      spriteInstance.transform.position = new Vector3(pos.x * _terrainSize, pos.y * _terrainSize, pos.z * _terrainSize);
+      spriteInstance.transform.localScale = new Vector3(_terrainSize, _terrainSize, _terrainSize);
       renderer = spriteInstance.GetComponent<Renderer>();
       this.spriteInstance.GetComponent<cellControl>().cell = this;
       this.movePointsRequired = walkSpeed;
