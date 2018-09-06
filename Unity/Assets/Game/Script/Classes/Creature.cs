@@ -214,6 +214,7 @@ public abstract class Creature {
       hasAttacked = true;
       Debug.Log("dealt " + attackDamage + " damage");
       victim.receiveAttack(this);
+      this.playAttackSound(GameObject.FindGameObjectWithTag("SoundController"));
       this.actionPoints = 0;
    }
 
