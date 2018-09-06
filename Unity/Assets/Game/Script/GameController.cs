@@ -93,6 +93,10 @@ public class GameController : MonoBehaviour {
       }
       else {
          Trio<int, int, Terrain> t;
+         if(terrain.creature == creatureClicked){
+            selectCreature(null);
+            return;
+         }
          if(attackPossibilities.hasCreature(terrain.creature)){
             if(terrain.creature.team != creatureClicked.team){
                creatureClicked.attack(terrain.creature);
@@ -102,7 +106,7 @@ public class GameController : MonoBehaviour {
                selectCreature(terrain.creature);
             }
          }
-         if (possibilities.tryGetTerrain(terrain.x, terrain.y, out t)) {
+         else if (possibilities.tryGetTerrain(terrain.x, terrain.y, out t)) {
             if (terrain.creature == null) {
                creatureClicked.move(terrain.x, terrain.y, t.second);
                selectCreature(null);
