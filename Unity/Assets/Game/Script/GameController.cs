@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
       if (creature != null){
          int ap = creature.actionPoints;
          int range = creature.attackRange;
-         if(creature is HumanKnight && creature.terrain is Plains)
+         if(creature is HumanKnight && creature.terrain is Plains && creature.actionPoints > 0)
             ap++;
          if(creature is HumanSiege){
             if((creature as HumanSiege).isMounted)

@@ -27,10 +27,13 @@ public class HumanKnight : Creature {
          base.attack(victim);
          attackDamage -= 70;
       }
-      else {
+      else if(actionPoints > 0){
          int ap = this.actionPoints - 1;
          base.attack(victim);
          this.actionPoints = ap;
+      }
+      else{
+         Debug.Log("not enough action points");
       }
    }
 

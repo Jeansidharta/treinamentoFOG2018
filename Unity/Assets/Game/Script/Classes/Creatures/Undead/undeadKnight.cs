@@ -20,9 +20,14 @@ public class UndeadKnight : Creature {
    }
 
    public override void attack(Creature victim) {
-      int ap = this.actionPoints - 1;
-      base.attack(victim);
-      this.actionPoints = ap;
+      if(actionPoints > 0){
+         int ap = this.actionPoints - 1;
+         base.attack(victim);
+         this.actionPoints = ap;
+      }
+      else{
+         Debug.Log("not enough action points");
+      }
    }
 
    public void imaterial(){

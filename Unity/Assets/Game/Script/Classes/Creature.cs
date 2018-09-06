@@ -53,7 +53,6 @@ public abstract class Creature {
       this.spriteInstance.transform.position = this.terrain.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
 
       var hpTransform = spriteInstance.GetComponentsInChildren<Transform>();
-      Debug.Log(hpTransform.Length);
       var hpScale = hpTransform[1].localScale;
       hpTransform[1].localScale = new Vector3(hpScale.x * Terrain._terrainSize * 1.3f, hpScale.y * Terrain._terrainSize * 1.3f, hpScale.z * Terrain._terrainSize * 1.3f);
 
