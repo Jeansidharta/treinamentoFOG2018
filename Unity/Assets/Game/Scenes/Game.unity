@@ -1547,8 +1547,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.675, y: 0.0000076294}
-  m_SizeDelta: {x: 196.15, y: 158.9}
+  m_AnchoredPosition: {x: 0.000011444, y: 0.0000076294}
+  m_SizeDelta: {x: 372.8, y: 158.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &615364384
 MonoBehaviour:
@@ -1570,10 +1570,10 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 8ac77f816ed4a454cbf10122930456b1, type: 3}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 20
-    m_FontStyle: 1
-    m_BestFit: 0
+    m_FontStyle: 0
+    m_BestFit: 1
     m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
@@ -1582,19 +1582,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'FFFFFFFFFFFFFF
-
-    Taaaaaaaaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaaaaaaaa
-
-    Aaaaaaaaaaaaaaaaaaaaaaa'
+  m_Text: 
 --- !u!222 &615364385
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1612,7 +1600,7 @@ GameObject:
   - component: {fileID: 635240501}
   m_Layer: 0
   m_Name: consoledisplayer
-  m_TagString: Untagged
+  m_TagString: Console
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

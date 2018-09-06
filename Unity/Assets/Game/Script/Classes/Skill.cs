@@ -12,7 +12,9 @@ public class Skill{
    public int cooldown = 0;
 
    Creature caster;
-   
+
+   private consoledisplayer console = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
+
    public delegate void SkillFunction();
    public SkillFunction function;
 
@@ -25,11 +27,11 @@ public class Skill{
 
    public bool canUse(){
       if(caster.actionPoints < minAP || (minAP == -1 && caster.actionPoints == 0)){
-         Debug.Log("not enough action points for " + name);
+         console.Log("not enough action points for " + name + "\n");
          return false;
       }
       if(cooldown > 0){
-         Debug.Log("You must wait " + cooldown + " to use " + name);
+         console.Log("You must wait " + cooldown + " to use " + name + "\n");
          return false;
       }
       return true;

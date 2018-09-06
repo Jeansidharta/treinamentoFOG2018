@@ -33,7 +33,7 @@ public class HumanKnight : Creature {
          this.actionPoints = ap;
       }
       else{
-         Debug.Log("not enough action points");
+       GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("not enough action points\n");
       }
    }
 
@@ -49,7 +49,7 @@ public class HumanKnight : Creature {
 
    public void assault() {
       if(!skills[0].use()) return;
-      Debug.Log("knight entered assault mode");
+      GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("knight entered assault mode\n");
       isAssaulting = true;
    }
 }

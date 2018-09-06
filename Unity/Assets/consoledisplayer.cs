@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class consoledisplayer : MonoBehaviour {
 
    private GameObject panel;
-   private string[] lines = new string[7];
-   private int current_line = 0;
+   private static string[] lines = new string[7];
+   private static int current_line = 0;
    private GameObject log;
 
    // Use this for initialization

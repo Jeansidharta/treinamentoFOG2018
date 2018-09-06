@@ -38,7 +38,7 @@ public class HumanWoodenFortress{
          MonoBehaviour.Destroy(spriteInstance);
          if(terrain.creature != null && terrain.creature.team == team)
             terrain.creature.defenseResistance -= additionalDefense;
-         Debug.Log("fortress dead");
+         GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("fortress dead");
       }
    }
 }

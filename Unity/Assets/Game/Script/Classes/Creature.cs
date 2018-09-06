@@ -15,6 +15,7 @@ public abstract class Creature {
    public int dodge;
 
    public healthBar hp_bar;
+   private consoledisplayer console = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
 
    public Skill[] skills = new Skill[3];
 
@@ -109,14 +110,14 @@ public abstract class Creature {
 
    public virtual bool defend() {
       if(hasAttacked){
-         Debug.Log("Cant defend in a turn that attacked");
+         console.Log("Cant defend in a turn that attacked\n");
          return false;
       }
       if(isDefending){
-         Debug.Log("im already defending");
+         console.Log("im already defending\n");
          return false;
       }
-      Debug.Log("defending");
+      console.Log("defending\n");
       isDefending = true;
       wasDefenseHealApplied = false;
       return true;
@@ -138,7 +139,7 @@ public abstract class Creature {
                creature.health += 70;
             }
             else creature.health += 50;
-            Debug.Log("undead soldier absorbed me");
+            console.Log("undead soldier absorbed me\n");
          }
       }
       terrain.creature = null;
@@ -167,7 +168,7 @@ public abstract class Creature {
       if (turnNumber == this.team) newTeamTurn();
       if (isDefending && !wasDefenseHealApplied) {
          changeHealth(defenseHeal);
-         Debug.Log("Healing " + defenseHeal + ". health is now " + health);
+         console.Log("Healing " + defenseHeal + ". health is now " + health + "\n");
          wasDefenseHealApplied = true;
       }
    }
@@ -177,7 +178,7 @@ public abstract class Creature {
       int myDefense = defenseResistance;
 
       if(Random.Range(0, 100) <= dodge){
-         Debug.Log("But the attack was dodged!");
+         console.Log("But the attack was dodged!\n");
          return;
       }
       if(terrain is Fortress || terrain.fortress != null){
@@ -186,7 +187,7 @@ public abstract class Creature {
             attacker is UndeadSiege ||
             (attacker.terrain is Fortress || attacker.terrain.fortress != null)
          ){
-            Debug.Log("fortress bonus denied");
+            console.Log("fortress bonus denied\n");
             if(terrain is Fortress)
                myDefense -= (terrain as Fortress).defenseBonus;
             else
@@ -198,20 +199,20 @@ public abstract class Creature {
       damage = (int)(damage * (1.0f - myDefense/100.0f));
       if(damage < 0) damage = 0;
       changeHealth(-damage);
-      Debug.Log(damage + " went through the total of " + myDefense + " defense. " + health + " Hp left");
+      console.Log(damage + " went through the total of " + myDefense + " defense. " + health + " Hp left\n");
    }
 
    public virtual void attack(Creature victim) {
       if(this.actionPoints == 0){
-         Debug.Log("Not enough action points");
+         console.Log("Not enough action points\n");
          return;
       }
       if(isDefending){
-         Debug.Log("i was defending, but since i attacked, im cancelling my defense");
+         console.Log("i was defending, but since i attacked, im cancelling my defense\n");
          isDefending = false;
       }
       hasAttacked = true;
-      Debug.Log("dealt " + attackDamage + " damage");
+      console.Log("dealt " + attackDamage + " damage\n");
       victim.receiveAttack(this);
       this.playAttackSound(GameObject.FindGameObjectWithTag("SoundController"));
       this.actionPoints = 0;
@@ -226,27 +227,27 @@ public abstract class Creature {
       this.terrain.creature = this;
       spriteInstance.transform.position = this.terrain.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
       if(!(lastTerrain is Fortress) && terrain is Fortress){
-         Debug.Log("Stepping in a fortress");
+         console.Log("Stepping in a fortress\n");
          this.defenseResistance += (terrain as Fortress).defenseBonus;
       }
       else if(lastTerrain is Fortress && !(terrain is Fortress)){
-         Debug.Log("Stepping out of fortress");
+         console.Log("Stepping out of fortress\n");
          defenseResistance -= (lastTerrain as Fortress).defenseBonus;
       }
       if(!(lastTerrain is Forest) && terrain is Forest){
-         Debug.Log("Stepping in forest");
+         console.Log("Stepping in forest\n");
          dodge += (terrain as Forest).dodgeBonus;
       }
       else if(lastTerrain is Forest && !(terrain is Forest)){
-         Debug.Log("Stepping out of forest");
+         console.Log("Stepping out of forest\n");
          dodge -= (lastTerrain as Forest).dodgeBonus;
       }
       if(lastTerrain.fortress == null && terrain.fortress != null && terrain.fortress.team == team){
-         Debug.Log("Stepping in a wooden fortress");
+         console.Log("Stepping in a wooden fortress\n");
          defenseResistance += terrain.fortress.additionalDefense;
       }
       else if(lastTerrain.fortress != null && terrain.fortress == null && lastTerrain.fortress.team == team){
-         Debug.Log("Stepping out of wooden fortress");
+         console.Log("Stepping out of wooden fortress\n");
          defenseResistance -= lastTerrain.fortress.additionalDefense;
       }
    }
@@ -260,7 +261,7 @@ public abstract class Creature {
    public virtual void move(int x, int y, int distance) {
       setPos(x, y);
       if(!useActionPoints(distance)){
-         Debug.Log("not enough points for walking");
+         console.Log("not enough points for walking\n");
       }
       List<Trap> trapsInRange = Trap.TrapsInRange(x, y);
       foreach(Trap trap in trapsInRange){

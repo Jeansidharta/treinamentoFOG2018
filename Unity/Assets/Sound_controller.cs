@@ -19,9 +19,9 @@ public class Sound_controller : MonoBehaviour {
 
 
     public AudioSource menuMusic;
-    static public float SoundFXVolume;
-    static public float musicVolume;
-    static public float soundCoef;
+    static public float SoundFXVolume = 1;
+    static public float musicVolume = 1;
+    static public float soundCoef = 1;
     public float mastervol;
     public float musicvol;
     public float soundfxvol;

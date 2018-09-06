@@ -128,10 +128,14 @@ public class GUIController : MonoBehaviour {
         
         //Setting win text
         winText = GameObject.FindGameObjectWithTag("WinText");
+        player -= 1;
+        if (player < 0) player = -player;
         winText.GetComponent<Text>().text = "Player " + (player+1).ToString() + " wins";
 
         //Setting Winner Image
         winImg = GameObject.FindGameObjectWithTag("WinImg");
+        team -= 1;
+        if (team < 0) team = -team;
         winImg.GetComponent<Image>().sprite = teamImg[team];
 
     }
