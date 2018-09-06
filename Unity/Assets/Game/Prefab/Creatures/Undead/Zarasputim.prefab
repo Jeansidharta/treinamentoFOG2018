@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224314353897675926}
   - component: {fileID: 223294899570212680}
   - component: {fileID: 114728293282544078}
-  - component: {fileID: 114881301524677140}
   m_Layer: 5
   m_Name: HealthCanvas
   m_TagString: Untagged
@@ -238,22 +237,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114881301524677140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1248543618276940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114974478009530920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,7 +311,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 6bbc0743ad5f8a04290b6b83acb5643b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 914ced55e8d0ff7409572e299642ca32, type: 3}
   m_Color: {r: 0.33962262, g: 0.17782128, b: 0.3085314, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -377,7 +360,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1248543618276940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.01}
   m_LocalScale: {x: 0.015999999, y: 0.0022999998, z: 1}
   m_Children:
   - {fileID: 224590131866120842}

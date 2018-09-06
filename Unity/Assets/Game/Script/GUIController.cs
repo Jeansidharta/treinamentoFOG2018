@@ -35,9 +35,9 @@ public class GUIController : MonoBehaviour {
    private GameObject winText;
    private GameObject winImg;
 
-    public consoledisplayer console;
+   public consoledisplayer console;
 
-    private Creature selectedCreature;
+   private Creature selectedCreature;
     
    private void Start(){
       GameController.guiController = this;

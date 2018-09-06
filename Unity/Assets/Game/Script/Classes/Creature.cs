@@ -51,7 +51,14 @@ public abstract class Creature {
       this.spriteInstance = MonoBehaviour.Instantiate(prefab);
       this.spriteInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
       this.spriteInstance.transform.position = this.terrain.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
+
+      var hpTransform = spriteInstance.GetComponentsInChildren<Transform>();
+      Debug.Log(hpTransform.Length);
+      var hpScale = hpTransform[1].localScale;
+      hpTransform[1].localScale = new Vector3(hpScale.x * Terrain._terrainSize * 1.3f, hpScale.y * Terrain._terrainSize * 1.3f, hpScale.z * Terrain._terrainSize * 1.3f);
+
       this.hp_bar = this.spriteInstance.GetComponent<healthBar>();
+      
 
         if (terrain is Fortress)
          this.defenseResistance += (terrain as Fortress).defenseBonus;
@@ -138,6 +145,9 @@ public abstract class Creature {
       terrain.creature = null;
       allCreatures.Remove(this);
       MonoBehaviour.Destroy(spriteInstance);
+      if(this is HumanHero || this is UndeadHero){
+         GameController.guiController.gameOver(this.team, this.team);
+      }
    }
 
    public virtual void newTeamTurn() {
