@@ -203,6 +203,10 @@ public abstract class Creature {
    }
 
    public virtual void attack(Creature victim) {
+      if(this.actionPoints == 0){
+         Debug.Log("Not enough action points");
+         return;
+      }
       if(isDefending){
          Debug.Log("i was defending, but since i attacked, im cancelling my defense");
          isDefending = false;
