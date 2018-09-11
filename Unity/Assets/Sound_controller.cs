@@ -35,7 +35,6 @@ public class Sound_controller : MonoBehaviour {
             musicvol = musicVolume;
             mastervol = soundCoef;
             soundfxvol = SoundFXVolume;
-            print(soundCoef);
         }
 	}
 	

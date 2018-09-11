@@ -94,6 +94,7 @@
     <Compile Include="Assets\Game\Script\GenerateTerrain.cs" />
     <Compile Include="Assets\Game\Script\GUI\ActiveStateToggler.cs" />
     <Compile Include="Assets\Game\Script\GUI\ApplicationManager.cs" />
+    <Compile Include="Assets\Game\Script\GUI\BuffsControl.cs" />
     <Compile Include="Assets\Game\Script\GUI\DisplaySkill.cs" />
     <Compile Include="Assets\Game\Script\GUI\ShowSliderValue.cs" />
     <Compile Include="Assets\Game\Script\GUI\sliderValue.cs" />

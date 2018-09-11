@@ -19,13 +19,15 @@ public class Terrain{
    public static int terrainHeight;
    public static int terrainWidth;
 
-   public static int _terrainSize = 13;
+   public static float _terrainSize = 0.05f;
+    private int w = 1236;
+    private int h = 1236;
 
    public Terrain(GameObject prefab, int x, int y, int walkSpeed = 1) {
       this.x = x;
       this.y = y;
       spriteInstance = MonoBehaviour.Instantiate(prefab);
-      spriteInstance.transform.position = new Vector3(x + (y % 2 == 0 ? 0 : 0.5f), y * 0.9f, 0) * 0.9f;
+      spriteInstance.transform.position = new Vector3((x + (y % 2 == 0 ? 0 : 0.5f)) * w/4, (y * 0.75f) * h/4, 0)*1.05f;
       var pos = spriteInstance.transform.position;
       spriteInstance.transform.position = new Vector3(pos.x * _terrainSize, pos.y * _terrainSize, pos.z * _terrainSize);
       spriteInstance.transform.localScale = new Vector3(_terrainSize, _terrainSize, _terrainSize);
