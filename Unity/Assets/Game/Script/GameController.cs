@@ -11,10 +11,11 @@ public class GameController : MonoBehaviour {
    public delegate void SkillFunction(Terrain terrain);
    public static SkillFunction overrideFunction;
 
+   public static consoledisplayer console;
+
    static bool isOverriding = false;
 
-    private void Update()
-    {
+    private void Update(){
         guiController.console.display();
     }
 

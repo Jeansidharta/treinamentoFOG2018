@@ -5,9 +5,12 @@ using UnityEngine;
 public class cameraControl : MonoBehaviour {
 
    float scrollAmmount = -100;
-	// Use this for initialization
-	void Start () {
-		
+
+	public void middleCamera () {
+		float tx = Terrain.terrainWidth * Terrain._terrainSize * 13 / 2;
+      float ty = Terrain.terrainHeight * Terrain._terrainSize * 13 / 2;
+      float tz = transform.position.z;
+      transform.position = new Vector3(tx, ty, tz);
 	}
 	
 	// Update is called once per frame

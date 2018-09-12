@@ -23,6 +23,8 @@ public class Skill{
       this.description = description;
       this.function = function;
       this.caster = caster;
+      this.minAP = minAp;
+      this.maxCooldown = maxCooldown;
    }
 
    public bool canUse(){
@@ -39,6 +41,7 @@ public class Skill{
 
    public bool use(){
       if(!canUse()) return false;
+      GameController.guiController.reload();
       cooldown = maxCooldown;
       if(minAP == -1)
          caster.useActionPoints(caster.actionPoints);

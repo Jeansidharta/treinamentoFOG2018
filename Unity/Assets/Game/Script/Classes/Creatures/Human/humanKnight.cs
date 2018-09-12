@@ -21,6 +21,10 @@ public class HumanKnight : Creature {
    }
 
    public override void attack(Creature victim) {
+      if(hasAttacked){
+         GameController.console.Log("a horse can only attack once\n");
+         return;
+      }
       if (isAssaulting) {
          isAssaulting = false;
          attackDamage += 70;
@@ -33,7 +37,7 @@ public class HumanKnight : Creature {
          this.actionPoints = ap;
       }
       else{
-       GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("not enough action points\n");
+       GameController.console.Log("not enough action points\n");
       }
    }
 

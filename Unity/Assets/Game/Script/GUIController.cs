@@ -51,6 +51,10 @@ public class GUIController : MonoBehaviour {
       selectBlank();
    }
 
+   public void reload(){
+      this.selectCreature(selectedCreature);
+   }
+
     public void selectCreature(Creature creature){
       selectedCreature = creature;
       if(creature == null){

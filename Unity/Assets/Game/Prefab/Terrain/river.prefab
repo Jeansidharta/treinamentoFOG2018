@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4616606488818290}
   - component: {fileID: 212943555854550738}
   - component: {fileID: 114463991825686102}
-  - component: {fileID: 60980290267116678}
+  - component: {fileID: 58483567140445862}
   m_Layer: 0
   m_Name: river
   m_TagString: Untagged
@@ -42,8 +42,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60980290267116678
-PolygonCollider2D:
+--- !u!58 &58483567140445862
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -55,23 +55,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 308.5, y: 309}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.5}
-      - {x: -0.43301272, y: 0.24999999}
-      - {x: -0.4330127, y: -0.25000003}
-      - {x: 0.00000004371139, y: -0.5}
-      - {x: 0.43301272, y: -0.24999996}
-      - {x: 0.43301272, y: 0.24999996}
+  serializedVersion: 2
+  m_Radius: 6.5
 --- !u!114 &114463991825686102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,8 +103,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd51ac36d87c0aa4dadf6a192f7466bc, type: 3}
-  m_Color: {r: 0.3882353, g: 0.61960787, b: 0.61960787, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1f81e93020023e941b32d12d2ae03c2d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

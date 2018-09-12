@@ -93,6 +93,7 @@ public class GenerateTerrain : MonoBehaviour {
             else new UndeadHero(x, y, team);
          }
       }
+      Camera.main.GetComponent<cameraControl>().middleCamera();
    }
 
    void Start() {
@@ -117,6 +118,8 @@ public class GenerateTerrain : MonoBehaviour {
 
       HumanArcherTrap.prefab = humanArcherTrapPrefab;
       HumanWoodenFortress.prefab = humanWoodenFortressPrefab;
+
+      GameController.console = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
 
       //parse input terrain text
       string terrainString = terrainFile.text;

@@ -14,7 +14,6 @@ public class cellControl : MonoBehaviour {
    void OnMouseDown() {
       if(!EventSystem.current.IsPointerOverGameObject()){
          cell.mouseDown();
-            Debug.Log("CLICK");
       }
    }
    void OnMouseUp() {
