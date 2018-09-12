@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212487826607611484}
   - component: {fileID: 114174539000625826}
   - component: {fileID: 82390432714284764}
+  - component: {fileID: 114766847004506726}
   m_Layer: 0
   m_Name: Squire
   m_TagString: Untagged
@@ -228,6 +229,46 @@ MonoBehaviour:
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114766847004506726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1067884426614184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743766bf140e0f340ad65cb5a36a4e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img:
+  - {fileID: 21300000, guid: 2be8a71da892cce41bb6797711c45fc0, type: 3}
+  - {fileID: 21300000, guid: 1975172e1675f004aacc6929241d694c, type: 3}
+  - {fileID: 21300000, guid: d23c4f26a497c0e488205579c68dcd6f, type: 3}
+  - {fileID: 21300000, guid: 8583d265f5369cb40b0cd8795fdb9cd4, type: 3}
+  - {fileID: 21300000, guid: a0300113723ab6f49b4ab3727dca2811, type: 3}
+  - {fileID: 21300000, guid: f540ccbc34efb3f44b75a901e12b5e21, type: 3}
+  - {fileID: 21300000, guid: f9956da649aa16d49841bca66ee3866a, type: 3}
+  - {fileID: 21300000, guid: 1aca1385014f70143a2f2aacfacc1803, type: 3}
+  - {fileID: 21300000, guid: 9d9799c3dfe64154c811ec806010ed27, type: 3}
+  - {fileID: 21300000, guid: 375ff3fee4453e840a4b98fc3b6dadcd, type: 3}
+  - {fileID: 21300000, guid: 69f2f9735754c7d4e9db0c721929218e, type: 3}
+  - {fileID: 21300000, guid: 264a8bce309b19040abae9f6786138f4, type: 3}
+  - {fileID: 21300000, guid: d0bb538bfad870740ad488b2774a2c3a, type: 3}
+  - {fileID: 21300000, guid: ae5857e3f0670b3499797c5a798571ac, type: 3}
+  - {fileID: 21300000, guid: 53821a4efe77c7348ab945ea62d71879, type: 3}
+  - {fileID: 21300000, guid: a650e17bfefa16a47a220e26f58cbb14, type: 3}
+  - {fileID: 21300000, guid: 967116d18391fb640b39500de2e16541, type: 3}
+  - {fileID: 21300000, guid: 09ecc30d20a8d2e41a4b1db1f46beac9, type: 3}
+  venom:
+  - {fileID: 21300000, guid: a79a04eaa11c99d4188ca697904d7834, type: 3}
+  - {fileID: 21300000, guid: 15d88ce39e7fa1d468bfb3730cf4da60, type: 3}
+  - {fileID: 21300000, guid: e9c1e745a96a25b499cec8fa5ea56f6a, type: 3}
+  - {fileID: 21300000, guid: 264a8bce309b19040abae9f6786138f4, type: 3}
+  backBuffs2: {fileID: 21300000, guid: b3a94307befde5643b26adb28d87b978, type: 3}
+  backBuffs: {fileID: 21300000, guid: 7a525d871c705304ca6ab8cb8d0a170b, type: 3}
+  backDefense: {fileID: 21300000, guid: fe0547c3ae4c4064480dc735b818dfb3, type: 3}
+  backTerrain: {fileID: 21300000, guid: 9136f49c7ad11274980bff2232754023, type: 3}
+  prefab: {fileID: 1811857236709304, guid: 473b0e943cf3b034a962a4abdd21116d, type: 2}
 --- !u!114 &114785453367197300
 MonoBehaviour:
   m_ObjectHideFlags: 1
