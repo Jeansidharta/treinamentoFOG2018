@@ -53,10 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
      <Compile Include="Assets\chooseClass.cs" />
-=======
->>>>>>> Stashed changes
      <Compile Include="Assets\consoledisplayer.cs" />
      <Compile Include="Assets\Game\Script\auxiliarScripts\cameraControl.cs" />
      <Compile Include="Assets\Game\Script\auxiliarScripts\cellControl.cs" />

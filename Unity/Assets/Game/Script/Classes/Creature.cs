@@ -55,7 +55,7 @@ public abstract class Creature {
 
       var hpTransform = spriteInstance.GetComponentsInChildren<Transform>();
       var hpScale = hpTransform[1].localScale;
-      hpTransform[1].localScale = new Vector3(hpScale.x * Terrain._terrainSize * 1.3f, hpScale.y * Terrain._terrainSize * 1.3f, hpScale.z * Terrain._terrainSize * 1.3f);
+      hpTransform[1].localScale = new Vector3(hpScale.x * Terrain._terrainSize * 1.3f, hpScale.y * Terrain._terrainSize * 1.3f, hpScale.z * Terrain._terrainSize * 1.3f) * 13;
 
       this.hp_bar = this.spriteInstance.GetComponent<healthBar>();
       
