@@ -33,14 +33,18 @@ public class Skill{
          return false;
       }
       if(cooldown > 0){
-         console.Log("You must wait " + cooldown + " to use " + name + "\n");
+         console.Log("You must wait " + cooldown + " turns to use " + name + "\n");
          return false;
       }
       return true;
    }
 
-   public bool use(){
+   public bool use(Creature victim = null){
       if(!canUse()) return false;
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         GameController.console.Log("cannot target immaterial undead knight\n");
+         return false;
+      }
       GameController.guiController.reload();
       cooldown = maxCooldown;
       if(minAP == -1)

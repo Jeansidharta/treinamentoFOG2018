@@ -17,6 +17,8 @@ public abstract class Creature {
    public healthBar hp_bar;
    private consoledisplayer console = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
 
+   public BuffsControl buffs;
+
    public Skill[] skills = new Skill[3];
 
    public int snareDuration = 0;
@@ -30,7 +32,7 @@ public abstract class Creature {
    public int x, y;
    public int team;
    public Terrain terrain;
-   protected GameObject spriteInstance;
+   public GameObject spriteInstance;
 
    public static List<Creature> allCreatures = new List<Creature>();
 
@@ -58,13 +60,6 @@ public abstract class Creature {
       hpTransform[1].localScale = new Vector3(hpScale.x * Terrain._terrainSize * 1.3f, hpScale.y * Terrain._terrainSize * 1.3f, hpScale.z * Terrain._terrainSize * 1.3f) * 13;
 
       this.hp_bar = this.spriteInstance.GetComponent<healthBar>();
-      
-
-        if (terrain is Fortress)
-         this.defenseResistance += (terrain as Fortress).defenseBonus;
-
-      else if(terrain is Forest)
-         this.dodge += (terrain as Forest).dodgeBonus;
 
       this.actionPoints = maxActionPoints;
       allCreatures.Add(this);
@@ -72,6 +67,11 @@ public abstract class Creature {
       for(int aux = 0; aux < this.skills.Length; aux ++){
          this.skills[aux] = null;
       }
+
+      buffs = spriteInstance.GetComponent<BuffsControl>();
+      if(this.terrain is Forest) buffs.add_buff("Floresta");
+      if(this.terrain is River) buffs.add_buff("Rio");
+      if(this.terrain is Fortress) buffs.add_buff("Fortaleza");
    }
 
    public virtual string getRaceName(){
@@ -180,6 +180,9 @@ public abstract class Creature {
       int damage = attacker.attackDamage;
       int myDefense = defenseResistance;
 
+      if(myDefense > 100) myDefense = 100;
+      if(damage < 0) damage = 0;
+
       if(Random.Range(0, 100) <= dodge){
          console.Log("But the attack was dodged!\n");
          GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sound_controller>().playEvade();
@@ -211,12 +214,16 @@ public abstract class Creature {
          console.Log("Not enough action points\n");
          return;
       }
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         console.Log("cannot attack immaterial undead knight\n");
+         return;
+      }
       if(isDefending){
-         console.Log("I was defending, but since I attacked, im cancelling my defense\n");
+         console.Log(getName() + " was defending, but since I attacked, im cancelling my defense\n");
          isDefending = false;
       }
       hasAttacked = true;
-      console.Log("dealt " + attackDamage + " damage\n");
+      console.Log("dealt " + attackDamage + " damage to " + victim.getName() + "\n");
       victim.receiveAttack(this);
       this.playAttackSound(GameObject.FindGameObjectWithTag("SoundController"));
       this.actionPoints = 0;
@@ -233,18 +240,28 @@ public abstract class Creature {
       if(!(lastTerrain is Fortress) && terrain is Fortress){
          //console.Log("Stepping in a fortress\n");
          this.defenseResistance += (terrain as Fortress).defenseBonus;
+         buffs.add_buff("Fortaleza");
       }
       else if(lastTerrain is Fortress && !(terrain is Fortress)){
          //console.Log("Stepping out of fortress\n");
          defenseResistance -= (lastTerrain as Fortress).defenseBonus;
+         buffs.remove_buff("Fortaleza");
       }
       if(!(lastTerrain is Forest) && terrain is Forest){
          //console.Log("Stepping in forest\n");
          dodge += (terrain as Forest).dodgeBonus;
+         buffs.add_buff("Floresta");
       }
       else if(lastTerrain is Forest && !(terrain is Forest)){
          //console.Log("Stepping out of forest\n");
          dodge -= (lastTerrain as Forest).dodgeBonus;
+         buffs.remove_buff("Floresta");
+      }
+      if(!(lastTerrain is River) && terrain is River){
+         buffs.add_buff("Rio");
+      }
+      else if(lastTerrain is River && !(terrain is River)){
+         buffs.remove_buff("Rio");
       }
       if(lastTerrain.fortress == null && terrain.fortress != null && terrain.fortress.team == team){
          //console.Log("Stepping in a wooden fortress\n");

@@ -28,8 +28,6 @@ public class HumanSiege : Creature {
    public bool isMounted = false;
    private bool isInverted = false;
 
-   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
-
    public HumanSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Montar", "Montar (AP = 2):\n\nPara uma unidade de catapulta ser capaz de atirar ela precisa primeiro se montar o que custa AP para fazer. Depois de montada a catapulta pode atacar normalmente desde que ela não se movimente, se a catapulta se mover ela tem que se montar novamente.\n", toggleMount, this, _minMountAP, _maxMountCooldown);
       
@@ -39,8 +37,12 @@ public class HumanSiege : Creature {
    }
 
    public override void attack(Creature victim) {
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         GameController.console.Log("Cannot attack immaterial undead knight\n");
+         return;
+      }
       if (!isMounted) {
-         cnl.Log("Must mount to attack\n");
+         GameController.console.Log("Must mount to attack\n");
          return;
       }
       if (isInverted) {
@@ -58,8 +60,10 @@ public class HumanSiege : Creature {
          var coord = neighbours[aux];
          var creature = Terrain.allTiles[coord.second][coord.first].creature;
 
-         if (creature != null && creature.team != this.team)
+         if (creature != null && creature.team != this.team){
+            actionPoints = 1;
             base.attack(creature);
+         }
       }
       this.attackDamage = _attackDamage;
    }
@@ -68,14 +72,14 @@ public class HumanSiege : Creature {
       if(!skills[0].use()) return;
       isMounted = !isMounted;
       if (isMounted)
-         cnl.Log("Mounted\n");
+         GameController.console.Log("Mounted\n");
       else
-         cnl.Log("Unmounted\n");
+         GameController.console.Log("Unmounted\n");
    }
 
    public void habilityInvert() {
       if(!skills[1].use()) return;
-      cnl.Log("inverted damage\n");
+      GameController.console.Log("inverting damage\n");
       isInverted = true;
    }
 
@@ -94,7 +98,7 @@ public class HumanSiege : Creature {
 
    public void habilityPush() {
       if(!skills[2].use()) return;
-      cnl.Log("Pushed!\n");
+      GameController.console.Log("Pushed!\n");
 
       Surroundings surroundings = terrain.expandByDistance(_pushRange);
       for(int aux = 1; aux < surroundings.creatures.Count; aux ++){
@@ -107,6 +111,6 @@ public class HumanSiege : Creature {
       if (!isMounted)
          base.move(x, y, distance);
       else
-         cnl.Log("Cant move while mounted\n");
+         GameController.console.Log("Cant move while mounted\n");
    }
 }

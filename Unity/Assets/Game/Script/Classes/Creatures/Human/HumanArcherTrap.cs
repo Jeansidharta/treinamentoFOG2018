@@ -11,6 +11,9 @@ public class HumanArcherTrap : Trap{
    private bool isHidden = false;
    
 	public HumanArcherTrap(int x, int y, int team) : base(prefab, x, y, team, _totalLifeSpam, 0){
+      Transform t = spriteInstance.GetComponent<Transform>();
+      Vector3 scale = t.localScale;
+      t.localScale = new Vector3(Terrain._terrainSize * 10, Terrain._terrainSize * 10, scale.z);
 	}
 
    public override void newTurn(int turn){
@@ -19,9 +22,14 @@ public class HumanArcherTrap : Trap{
    }
 
    public override void activate(Creature creature){
+      if(creature is UndeadKnight && (creature as UndeadKnight).isImmaterial){
+         GameController.console.Log("Cannot snare immaterial undead knight\n");
+         return;
+      }
       creature.snareDuration += _snareAmmount;
       creature.actionPoints = 0;
       base.activate(creature);
+      GameController.console.Log("trap activated");
    }
 
    public void hide(){

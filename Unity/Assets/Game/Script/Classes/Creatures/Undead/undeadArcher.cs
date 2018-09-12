@@ -29,7 +29,7 @@ public class UndeadArcher : Creature {
       base.newTurn(turn);
       if(venomTarget != null){
          venomTarget.changeHealth(-venomDamage);
-         Debug.Log("applying " + venomDamage + " as venom damage");
+         GameController.console.Log("applying " + venomDamage + " as venom damage");
          venomTurnsRemaining--;
          if(venomTurnsRemaining <= 0){
             venomTarget = null;
@@ -41,6 +41,10 @@ public class UndeadArcher : Creature {
 
    public override void attack(Creature victim){
       base.attack(victim);
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         GameController.console.Log("Cannot attack immaterial undead knight\n");
+         return;
+      }
       if(victim == venomTarget){
          venomDamage += 5;
          if(venomDamage > 20 || isUsingToxic)
@@ -56,6 +60,6 @@ public class UndeadArcher : Creature {
    public void toxic(){
       if(!skills[0].use()) return;
       isUsingToxic = true;
-      GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("using toxic\n");
+      GameController.console.Log("using toxic\n");
    }
 }

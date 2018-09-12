@@ -110,6 +110,8 @@ public class GameController : MonoBehaviour {
          }
          else if (possibilities.tryGetTerrain(terrain.x, terrain.y, out t)) {
             if (terrain.creature == null) {
+               if(creatureClicked is HumanKnight && t.first == 1)
+                  t.second++;
                creatureClicked.move(terrain.x, terrain.y, t.second);
                selectCreature(null);
             }

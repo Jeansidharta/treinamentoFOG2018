@@ -20,8 +20,6 @@ public class HumanArcher : Creature {
    private bool movedLastTurn = true;
    private bool movedThisTurn = false;
 
-   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
-
 
    public HumanArcher(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Armadilha de Rede", "Armadilha de rede: (Cd = 6) (Ap = 1) (alcance = 1\n\nColoca uma armadilha no chão que é visível por 1 turno e depois se torna invisível. Tal armadilha ira paralisar o alvo impedindo de se movimentar no próximo turno do jogador. A armadilha em si dura 15 turnos.\n", previewTrap, this, _minTrapAP, _maxTrapCooldown);
@@ -43,6 +41,10 @@ public class HumanArcher : Creature {
    }
 
    public override void attack(Creature victim) {
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         GameController.console.Log("Cannot attack immaterial undead knight\n");
+         return;
+      }
       if (!movedLastTurn) {
          Surroundings surroundings = terrain.expandByDistance(attackRange);
 
@@ -66,16 +68,16 @@ public class HumanArcher : Creature {
    //public Surroundings previewTrap(){
    public void previewTrap(){
       if(!skills[0].canUse()) return;
-      cnl.Log("Previewing trap\n");
+      GameController.console.Log("Previewing trap\n");
       preview = terrain.expandByDistance(terrain.movePointsRequired);
       GameController.overrideClick(trySetTrap);
       preview.paint(Color.blue);
    }
 
    public void setTrap(int x, int y){
-      cnl.Log("Setting trap\n");
+      GameController.console.Log("Setting trap\n");
       new HumanArcherTrap(x, y, team);
-      skills[0].use();
+      if(!skills[0].use()) return;
    }
 
     public void trySetTrap(Terrain terrain)
@@ -88,11 +90,11 @@ public class HumanArcher : Creature {
                 {
                     this.setTrap(terrain.x, terrain.y);
                 }
-                else cnl.Log("Cant place trap in mountain\n");
+                else GameController.console.Log("Cant place trap in mountain\n");
             }
-            else cnl.Log("Cant place trap over another creature or trap\n");
+            else GameController.console.Log("Cant place trap over another creature or trap\n");
         }
-        else cnl.Log("position out of range\n");
+        else GameController.console.Log("position out of range\n");
         preview.clear();
         preview = null;
     }

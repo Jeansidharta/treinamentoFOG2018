@@ -13,13 +13,22 @@ public class BuffsControl : MonoBehaviour {
 
     [SerializeField] GameObject prefab;
 
+    private int venomstack = 0;
+    private float r = 4.5f;
+    private GameObject[][] buffs = new GameObject[4][];
+
+    private bool hasStarted = false;
+
     private void Start()
     {
-        buffs[0] = new GameObject[1] { null };
-        buffs[1] = new GameObject[12];
-        for (int i = 0; i < buffs[1].Length; i++) buffs[1][i] = null;
-        buffs[2] = new GameObject[1] { null };
-        buffs[3] = new GameObject[3] { null, null, null };
+       if(!hasStarted){
+         buffs[0] = new GameObject[1] { null };
+         buffs[1] = new GameObject[12];
+         for (int i = 0; i < buffs.Length; i++) buffs[1][i] = null;
+         buffs[2] = new GameObject[1] { null };
+         buffs[3] = new GameObject[3] { null, null, null };
+         hasStarted = true;
+       }
     }
 
     private int apply_venom()
@@ -28,10 +37,6 @@ public class BuffsControl : MonoBehaviour {
         buffs[1][8].GetComponentsInChildren<SpriteRenderer>()[0].sprite = venom[venomstack-1];
         return venomstack;
     }
-
-    private int venomstack = 0;
-    private float r = 4.5f;
-    private GameObject[][] buffs = new GameObject[4][];
     
     //Buff[0] == Azul, buff secundario
     //Buff[1] == Verde, buff primario
@@ -76,6 +81,7 @@ public class BuffsControl : MonoBehaviour {
     /* recebe nome do buff a ser adicionado */
     public void add_buff(string adc)
     {
+       if(!hasStarted) this.Start();
         if(adc == "Montado" && buffs[0][0] == null)
         {
             Vector3 position = calculate_pos(0);

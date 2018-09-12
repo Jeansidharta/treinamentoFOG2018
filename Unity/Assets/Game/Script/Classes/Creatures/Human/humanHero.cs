@@ -25,8 +25,6 @@ public class HumanHero : Creature {
    const int _minLastResourcesAP = 2;
    List<Pair<Creature, int>> lastResourcesTargets = null;
 
-   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
-
    public Surroundings cornerSurroundings = null;
 
    public HumanHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
@@ -46,7 +44,7 @@ public class HumanHero : Creature {
             int ammount = lastResourcesTargets[aux].second;
             creature.defenseResistance -= ammount;
          }
-         cnl.Log("removing defenses\n");
+         GameController.console.Log("removing defenses\n");
          lastResourcesTargets = null;
       }
    }
@@ -68,18 +66,18 @@ public class HumanHero : Creature {
 
    public void trySetFortress(Terrain terrain){
       if(terrain.fortress != null){
-         cnl.Log("already has a fortress here\n");
+         GameController.console.Log("already has a fortress here\n");
          return;
       }
       new HumanWoodenFortress(terrain, team);
-      skills[0].use();
+      if(!skills[0].use()) return;
    }
 
    public void lastResource(){
       if(!skills[2].use()) return;
       Surroundings surroundings = terrain.expandByDistance(1);
       lastResourcesTargets = new List<Pair<Creature, int>>();
-      cnl.Log("using last resource\n");
+      GameController.console.Log("using last resource\n");
       for(int aux = 0; aux < surroundings.creatures.Count; aux ++){
          Creature creature = surroundings.creatures[aux].second;
          if(creature == this) continue;
@@ -87,7 +85,7 @@ public class HumanHero : Creature {
             int ammount = (int)((float)(creature.maxHealth - creature.health) * 1.5);
             creature.defenseResistance += ammount;
             lastResourcesTargets.Add(new Pair<Creature, int>(creature, ammount));
-            cnl.Log("giving " + ammount + " defense to creature\n");
+            GameController.console.Log("giving " + ammount + " defense to + " + creature.getName() + "\n");
          }
       }
    }
@@ -102,18 +100,18 @@ public class HumanHero : Creature {
    public void tryCorner(Terrain terrain){
       cornerSurroundings.clear();
       if(terrain.creature == null || terrain.creature.team == team){
-         cnl.Log("invalid target\n");
+         GameController.console.Log("invalid target\n");
          return;
       }
       if(!cornerSurroundings.hasTerrain(terrain.x, terrain.y)){
-         cnl.Log("out of reach\n");
+         GameController.console.Log("out of reach\n");
          return;
       }
-      skills[1].use();
+      if(!skills[1].use(terrain.creature)) return;
       int bestCount = 0;
       int secondBestCount = 0;
-      Creature best = null;
-      Creature secondBest = null;
+      Creature best;
+      Creature secondBest;
       for(int aux = 0; aux < cornerSurroundings.creatures.Count; aux ++){
          Creature creature = cornerSurroundings.creatures[aux].second;
          if(creature == this) continue;
@@ -132,6 +130,6 @@ public class HumanHero : Creature {
       attackDamage = bestCount + secondBestCount;
       terrain.creature.receiveAttack(this);
       attackDamage = buffer;
-      cnl.Log("used corner\n");
+      GameController.console.Log("used corner\n");
    }
 }

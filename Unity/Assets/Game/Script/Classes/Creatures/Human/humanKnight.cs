@@ -21,6 +21,10 @@ public class HumanKnight : Creature {
    }
 
    public override void attack(Creature victim) {
+      if(victim is UndeadKnight && (victim as UndeadKnight).isImmaterial){
+         GameController.console.Log("Cannot attack immaterial undead knight\n");
+         return;
+      }
       if(hasAttacked){
          GameController.console.Log("a horse can only attack once\n");
          return;
@@ -37,7 +41,7 @@ public class HumanKnight : Creature {
          this.actionPoints = ap;
       }
       else{
-       GameController.console.Log("not enough action points\n");
+         GameController.console.Log("not enough action points\n");
       }
    }
 
@@ -53,7 +57,7 @@ public class HumanKnight : Creature {
 
    public void assault() {
       if(!skills[0].use()) return;
-      GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("knight entered assault mode\n");
+      GameController.console.Log("knight entered assault mode\n");
       isAssaulting = true;
    }
 }

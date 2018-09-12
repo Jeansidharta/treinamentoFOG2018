@@ -15,8 +15,6 @@ public class HumanSoldier : Creature {
    const int _maxRaiseShieldsCooldown = 3;
    const int _minRaiseShieldsAP = 3;
 
-   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
-
    private bool areShieldsRaised = false;
 
    public HumanSoldier(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
@@ -35,7 +33,7 @@ public class HumanSoldier : Creature {
 
    public void raiseShields(){
       if(!skills[0].use()) return;
-      cnl.Log("raising shields, also automatically defending\n");
+      GameController.console.Log("raising shields, also automatically defending\n");
       areShieldsRaised = true;
       defenseHeal *= 2;
       defenseResistance *= 3;

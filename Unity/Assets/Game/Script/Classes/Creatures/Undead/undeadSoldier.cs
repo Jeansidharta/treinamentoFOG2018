@@ -17,8 +17,6 @@ public class UndeadSoldier : Creature {
    private Surroundings cursedTouchSurroundings = null;
    Creature cursedTouchCreature = null;
 
-   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
-
     public UndeadSoldier(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Toque amaldiçoado", "Toque amaldiçoado: (CD  = 5) (AP = 1) (Alcance = 1)\n\nPor um turno, unidade inimiga selecionada recebe 5% mais de dano de todas as fontes. Uma unidade pode receber o toque amaldiçoado de múltiplos guerreiros esqueléticos diferentes. Se a unidade morrer naquele turno, crie um guerreiro esquelético com vida máxima 1.\n", previewCursedTouch, this, _minCursedTouchAP, _maxCursedTouchCooldown);
    }
@@ -26,9 +24,9 @@ public class UndeadSoldier : Creature {
    public override void newTeamTurn(){
       base.newTeamTurn();
       if(cursedTouchCreature != null){
-         cursedTouchCreature.defenseResistance += 5;
+         cursedTouchCreature.defenseResistance -= 5;
          cursedTouchCreature = null;
-         cnl.Log("cursed touch removed\n");
+         GameController.console.Log("cursed touch removed\n");
       }
    }
 
@@ -41,16 +39,16 @@ public class UndeadSoldier : Creature {
    public void tryCursedTouch(Terrain terrain){
       cursedTouchSurroundings.clear();
       if(terrain.creature == null || terrain.creature.team == team){
-         cnl.Log("invalid target\n");
+         GameController.console.Log("invalid target\n");
          return;
       }
       if(!cursedTouchSurroundings.hasTerrain(terrain.x, terrain.y)){
-         cnl.Log("out of range\n");
+         GameController.console.Log("out of range\n");
          return;
       }
-      skills[0].use();
+      if(!skills[0].use(terrain.creature)) return;
       terrain.creature.defenseResistance -= 5;
       cursedTouchCreature = terrain.creature;
-      cnl.Log("cursed touch applied\n");
+      GameController.console.Log("cursed touch applied\n");
    }
 }
