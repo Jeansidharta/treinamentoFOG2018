@@ -20,15 +20,6 @@ public class BuffsControl : MonoBehaviour {
         for (int i = 0; i < buffs[1].Length; i++) buffs[1][i] = null;
         buffs[2] = new GameObject[1] { null };
         buffs[3] = new GameObject[3] { null, null, null };
-        add_buff("Municao Venenosa");
-        add_buff("Municao Venenosa");
-        add_buff("Toque Amaldicoado");
-        add_buff("Montado");
-        add_buff("Rio");
-        add_buff("Floresta");
-        add_buff("Floresta");
-        add_buff("Instinto de Lideranca");
-        add_buff("Defender");
     }
 
     private int apply_venom()

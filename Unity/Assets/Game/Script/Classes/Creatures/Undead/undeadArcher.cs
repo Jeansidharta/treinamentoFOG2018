@@ -56,6 +56,6 @@ public class UndeadArcher : Creature {
    public void toxic(){
       if(!skills[0].use()) return;
       isUsingToxic = true;
-      Debug.Log("using toxic");
+      GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("using toxic\n");
    }
 }

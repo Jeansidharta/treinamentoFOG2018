@@ -27,7 +27,7 @@ public class DisplaySkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerUp(PointerEventData eventData){ //apply skill
       if(creature.isUndeadSiegeSupressed){
-         Debug.Log("creature is supressed, cant use hability");
+         GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>().Log("creature is supressed, cant use hability\n");
          return;
       }
       if(skillFunction != null) skillFunction();

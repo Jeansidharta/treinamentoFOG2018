@@ -15,7 +15,9 @@ public class UndeadKnight : Creature {
    const int _minImaterialAP = 0;
    const int _maxImaterialCooldown = 4;
 
-   public UndeadKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
+
+    public UndeadKnight(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Imaterial", "Imaterial: (Cd = 4) (AP = 0) (Alcance = nulo)\n\nDurante o próximo turno do inimigo o cavaleiro espectral não poderá receber dano ou ser alvo de qualquer habilidade.\n", imaterial, this, _minImaterialAP, _maxImaterialCooldown);
    }
 
@@ -26,7 +28,7 @@ public class UndeadKnight : Creature {
          this.actionPoints = ap;
       }
       else{
-         Debug.Log("not enough action points");
+         cnl.Log("not enough action points\n");
       }
    }
 

@@ -25,6 +25,8 @@ public class UndeadSiege : Creature {
    const int _minReviveAP = 2;
    private Surroundings reviveSurroundings = null;
 
+   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
+
    public UndeadSiege(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Montar", "Montar (AP = 2):\n\nPara uma unidade de catapulta ser capaz de atirar ela precisa primeiro se montar o que custa AP para fazer. Depois de montada a catapulta pode atacar normalmente desde que ela não se movimente, se a catapulta se mover ela tem que se montar novamente.\n", toggleMount, this, _minMountAP, _maxMountCooldown);
       
@@ -37,21 +39,21 @@ public class UndeadSiege : Creature {
       if(!skills[0].use()) return;
       isMounted = !isMounted;
       if (isMounted)
-         Debug.Log("Mounted");
+         cnl.Log("Mounted\n");
       else
-         Debug.Log("Unmounted");
+         cnl.Log("Unmounted\n");
    }
 
    public override void move(int x, int y, int distance) {
       if (!isMounted)
          base.move(x, y, distance);
       else
-         Debug.Log("Cant move while mounted");
+         cnl.Log("Cant move while mounted\n");
    }
 
    public override void attack(Creature victim) {
       if (!isMounted) {
-         Debug.Log("Must mount to attack");
+         cnl.Log("Must mount to attack\n");
          return;
       }
       base.attack(victim);
@@ -75,21 +77,21 @@ public class UndeadSiege : Creature {
    public void trySupress(Terrain terrain){
       supressSurroundings.clear();
       if(terrain.creature == null || terrain.creature.team == team){
-         Debug.Log("invalid target");
+         cnl.Log("invalid target\n");
          return;
       }
       if(!supressSurroundings.hasTerrain(terrain.x, terrain.y)){
-         Debug.Log("out of range");
+         cnl.Log("out of range\n");
          return;
       }
       if(terrain.creature is HumanHero || terrain.creature is UndeadHero){
-         Debug.Log("Cannot select hero");
+         cnl.Log("Cannot select hero\n");
          return;
       }
       skills[2].use();
       terrain.creature.isUndeadSiegeSupressed = true;
       supressTarget = terrain.creature;
-      Debug.Log("supressing creature");
+      cnl.Log("supressing creature\n");
    }
 
    public void previewRevive(){
@@ -102,11 +104,11 @@ public class UndeadSiege : Creature {
    public void tryRevive(Terrain terrain){
       reviveSurroundings.clear();
       if(terrain.creature != null || terrain is Mountain){
-         Debug.Log("invalid target");
+         cnl.Log("invalid target\n");
          return;
       }
       if(!reviveSurroundings.hasTerrain(terrain.x, terrain.y)){
-         Debug.Log("out of range");
+         cnl.Log("out of range\n");
          return;
       }
       skills[1].use();

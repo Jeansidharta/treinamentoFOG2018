@@ -4055,6 +4055,7 @@ MonoBehaviour:
   skeletondeath: {fileID: 8300000, guid: 0acf118cc29be0e458e9af2a29bfe8d7, type: 3}
   humandeath: {fileID: 8300000, guid: 06449a5a4118dc748afef55133517233, type: 3}
   evadeclip: {fileID: 8300000, guid: 332accf7170b40546b9512b228f1bbfe, type: 3}
+  mouseclick: {fileID: 8300000, guid: 4351fcb865ffdf54d8987e624844b588, type: 3}
   isMenu: 0
   isGame: 1
   menuMusic: {fileID: 0}

@@ -11,6 +11,7 @@ public class Sound_controller : MonoBehaviour {
     [SerializeField] AudioClip skeletondeath;
     [SerializeField] AudioClip humandeath;
     [SerializeField] AudioClip evadeclip;
+    [SerializeField] AudioClip mouseclick;
 
     public int isMenu;
     public int isGame; 
@@ -66,5 +67,11 @@ public class Sound_controller : MonoBehaviour {
     {
         mainCamera.GetComponent<AudioSource>().volume = mastervol * soundfxvol;
         mainCamera.GetComponent<AudioSource>().PlayOneShot(evadeclip);
+    }
+
+    public void playClick()
+    {
+        mainCamera.GetComponent<AudioSource>().volume = mastervol * soundfxvol;
+        mainCamera.GetComponent<AudioSource>().PlayOneShot(mouseclick);
     }
 }
