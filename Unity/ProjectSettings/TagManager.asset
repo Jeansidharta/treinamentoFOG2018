@@ -15,6 +15,7 @@ TagManager:
   - LogPanel
   - SoundController
   - Console
+  - BlockButton
   layers:
   - Default
   - TransparentFX

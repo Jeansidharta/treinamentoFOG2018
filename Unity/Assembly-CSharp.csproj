@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\chooseClass.cs" />
      <Compile Include="Assets\consoledisplayer.cs" />
+     <Compile Include="Assets\Game\Script\auxiliarScripts\blockButonController.cs" />
      <Compile Include="Assets\Game\Script\auxiliarScripts\cameraControl.cs" />
      <Compile Include="Assets\Game\Script\auxiliarScripts\cellControl.cs" />
      <Compile Include="Assets\Game\Script\auxiliarScripts\nextTurnButtonControll.cs" />
@@ -140,6 +141,7 @@
      <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
      <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
      <Compile Include="Assets\Sound_controller.cs" />
+     <None Include="Assets\Game\MAPGame.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Fog.shader" />
@@ -153,7 +155,7 @@
      <None Include="Assets\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
-     <None Include="Assets\Game\MAP.txt" />
+     <None Include="Assets\Game\MAPTest.txt" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Uber.shader" />
      <None Include="Assets\PostProcessing\Resources\Shaders\Blit.shader" />
      <None Include="Assets\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />

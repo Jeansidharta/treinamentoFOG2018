@@ -117,7 +117,6 @@ public abstract class Creature {
          console.Log("im already defending\n");
          return false;
       }
-      console.Log("defending\n");
       isDefending = true;
       wasDefenseHealApplied = false;
       return true;

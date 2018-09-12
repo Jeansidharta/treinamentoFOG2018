@@ -34,6 +34,7 @@ public class GUIController : MonoBehaviour {
    private GameObject WinUI;
    private GameObject winText;
    private GameObject winImg;
+   private GameObject blockButton;
 
    public consoledisplayer console;
 
@@ -46,6 +47,7 @@ public class GUIController : MonoBehaviour {
       skillGO = GameObject.FindGameObjectsWithTag("SkillObject").OrderBy(go => go.name).ToArray(); 
       skillN = GameObject.FindGameObjectsWithTag("SkillText").OrderBy(go => go.name).ToArray();
       skillD = GameObject.FindGameObjectsWithTag("SkillDescription").OrderBy(go => go.name).ToArray();
+      blockButton = GameObject.FindGameObjectsWithTag("BlockButton")[0];
       WinUI = GameObject.FindGameObjectWithTag("WinUI");
       WinUI.SetActive(false);
       selectBlank();
@@ -61,6 +63,8 @@ public class GUIController : MonoBehaviour {
          selectBlank();
          return;
       }
+
+      blockButton.GetComponent<blockButonController>().selectCreature(creature);
       //Assigning Selected creature's value to diplay on GUI
       text_name.text = "Name: " + creature.getName();
       text_team.text = "Team: " + creature.getRaceName();
