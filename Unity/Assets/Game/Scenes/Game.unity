@@ -1164,7 +1164,7 @@ MonoBehaviour:
     type: 2}
   undeadHeroPrefab: {fileID: 1631262837237118, guid: dc61bb93c84ed2e4dbbc4351b324db93,
     type: 2}
-  terrainFile: {fileID: 4900000, guid: 3b7ad8b48f24b0642bd26dd5e458cc93, type: 3}
+  terrainFile: {fileID: 4900000, guid: d5794e1c0359f7243a6027d0499ba924, type: 3}
 --- !u!4 &455707498
 Transform:
   m_ObjectHideFlags: 0

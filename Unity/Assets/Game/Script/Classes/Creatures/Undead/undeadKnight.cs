@@ -22,6 +22,10 @@ public class UndeadKnight : Creature {
    }
 
    public override void attack(Creature victim) {
+      if(hasAttacked){
+         GameController.console.Log("a horse can only attack once\n");
+         return;
+      }
       if(actionPoints > 0){
          int ap = this.actionPoints - 1;
          base.attack(victim);
