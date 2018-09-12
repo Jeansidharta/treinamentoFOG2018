@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GenerateTerrain : MonoBehaviour {
+
+   //Como puxar o time do jogador:
+   /* player = 0, primeiro jogador
+    * player = 1, segundo jogador
+    * (new chooseClass().teams[player])
+    * exemplo: int RacaDoPlayer1 = new chooseClass().teams[0];
+    * exemplo: int RacaDoPlayer2 = new chooseClass().teams[1]; 
+    * se retornar 0 eh Humano
+    * se retornar 1 eh Undead
+    */
+
    const int squareHeight = 40;
    const int squareWidth = 64;
 

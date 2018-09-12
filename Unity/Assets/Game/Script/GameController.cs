@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour {
       }
       creatureClicked = creature;
       if (creature != null){
+         GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sound_controller>().playClick();
          int ap = creature.actionPoints;
          int range = creature.attackRange;
          if(creature is HumanKnight && creature.terrain is Plains && creature.actionPoints > 0)

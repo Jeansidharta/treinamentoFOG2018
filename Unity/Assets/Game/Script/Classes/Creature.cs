@@ -143,6 +143,10 @@ public abstract class Creature {
          }
       }
       terrain.creature = null;
+      if(this is HumanArcher || this is HumanHero || this is HumanKnight || this is HumanSiege || this is HumanSoldier)
+            GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sound_controller>().playDeath(0);
+      else if (this is UndeadArcher || this is UndeadHero || this is UndeadKnight || this is UndeadSiege || this is UndeadSoldier)
+            GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sound_controller>().playDeath(1);
       allCreatures.Remove(this);
       MonoBehaviour.Destroy(spriteInstance);
       if(this is HumanHero || this is UndeadHero){
@@ -179,6 +183,7 @@ public abstract class Creature {
 
       if(Random.Range(0, 100) <= dodge){
          console.Log("But the attack was dodged!\n");
+         GameObject.FindGameObjectWithTag("SoundController").GetComponent<Sound_controller>().playEvade();
          return;
       }
       if(terrain is Fortress || terrain.fortress != null){
@@ -208,7 +213,7 @@ public abstract class Creature {
          return;
       }
       if(isDefending){
-         console.Log("i was defending, but since i attacked, im cancelling my defense\n");
+         console.Log("I was defending, but since I attacked, im cancelling my defense\n");
          isDefending = false;
       }
       hasAttacked = true;
@@ -227,27 +232,27 @@ public abstract class Creature {
       this.terrain.creature = this;
       spriteInstance.transform.position = this.terrain.spriteInstance.transform.position + new Vector3(0, 0, -0.0001f);
       if(!(lastTerrain is Fortress) && terrain is Fortress){
-         console.Log("Stepping in a fortress\n");
+         //console.Log("Stepping in a fortress\n");
          this.defenseResistance += (terrain as Fortress).defenseBonus;
       }
       else if(lastTerrain is Fortress && !(terrain is Fortress)){
-         console.Log("Stepping out of fortress\n");
+         //console.Log("Stepping out of fortress\n");
          defenseResistance -= (lastTerrain as Fortress).defenseBonus;
       }
       if(!(lastTerrain is Forest) && terrain is Forest){
-         console.Log("Stepping in forest\n");
+         //console.Log("Stepping in forest\n");
          dodge += (terrain as Forest).dodgeBonus;
       }
       else if(lastTerrain is Forest && !(terrain is Forest)){
-         console.Log("Stepping out of forest\n");
+         //console.Log("Stepping out of forest\n");
          dodge -= (lastTerrain as Forest).dodgeBonus;
       }
       if(lastTerrain.fortress == null && terrain.fortress != null && terrain.fortress.team == team){
-         console.Log("Stepping in a wooden fortress\n");
+         //console.Log("Stepping in a wooden fortress\n");
          defenseResistance += terrain.fortress.additionalDefense;
       }
       else if(lastTerrain.fortress != null && terrain.fortress == null && lastTerrain.fortress.team == team){
-         console.Log("Stepping out of wooden fortress\n");
+         //console.Log("Stepping out of wooden fortress\n");
          defenseResistance -= lastTerrain.fortress.additionalDefense;
       }
    }

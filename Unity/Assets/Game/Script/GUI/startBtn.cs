@@ -12,4 +12,9 @@ public class startBtn : MonoBehaviour {
     {
         SceneManager.LoadScene("MenuInicial");
     }
+
+    public void SelectMenu()
+    {
+        SceneManager.LoadScene("MenuEscolha");
+    }
 }

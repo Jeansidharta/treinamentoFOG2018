@@ -23,7 +23,9 @@ public class UndeadHero : Creature {
    const int _maxOnslaughtCooldown = 10;
    const int _minOnslaughtAP = 5;
 
-   public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
+   private consoledisplayer cnl = GameObject.FindGameObjectWithTag("Console").GetComponent<consoledisplayer>();
+
+    public UndeadHero(int x, int y, int team) : base(prefab, x, y, _maxActionPoints, team, _maxHealth, _attackDamage, _attackRange, _defenseHeal, _defenseResistance, _baseDodge) {
       skills[0] = new Skill("Renascer", "Renascer: (CD = 7) (AP = 3) (Alcance = 1)\n\nAo usar renascer Zarasputin invoca uma unidade do tipo “Guerreiro esquelético” da classe infantaria ao seu lado. Essa unidade inicia com 0 de AP, retornando depois para o seu nível padrão.\n", previewRevive, this, _minReviveAP, _maxReviveCooldown);
       
       skills[1] = new Skill("Possessão", "Possessão: (CD = 7) (Ap = 3) (Alcance = 3)\n\nAo usar possessão o jogador selecionará um inimigo a 3 de distância ou menos e poderá move-lo para qualquer lugar a 3 de distância ou menos de onde essa unidade está.\n", previewPossess, this, _minPossessAP, _maxPossessCooldown);
@@ -41,11 +43,11 @@ public class UndeadHero : Creature {
    public void tryRevive(Terrain terrain){
       reviveSurroundings.clear();
       if(terrain.creature != null || terrain is Mountain){
-         Debug.Log("invalid target");
+         cnl.Log("invalid target\n");
          return;
       }
       if(!reviveSurroundings.hasTerrain(terrain.x, terrain.y)){
-         Debug.Log("out of range");
+         cnl.Log("out of range\n");
          return;
       }
       skills[0].use();
@@ -68,7 +70,7 @@ public class UndeadHero : Creature {
          return;
       }
       if(terrain.creature == null){
-         Debug.Log("invalid target");
+         cnl.Log("invalid target\n");
          return;
       }
       GameController.overrideClick(tryPossess2);
@@ -79,11 +81,11 @@ public class UndeadHero : Creature {
    public void tryPossess2(Terrain terrain){
       possessSurroundings.clear();
       if(!possessSurroundings.hasTerrain(terrain.x, terrain.y)){
-         Debug.Log("out of range");
+         cnl.Log("out of range\n");
          return;
       }
       if(terrain.creature != null){
-         Debug.Log("invalid target");
+         cnl.Log("invalid target\n");
          return;
       }
 
