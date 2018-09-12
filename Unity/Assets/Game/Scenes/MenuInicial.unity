@@ -2182,9 +2182,15 @@ MonoBehaviour:
   MasterVolume: {fileID: 754358218}
   MusicVolume: {fileID: 952654600}
   SoundFX: {fileID: 1746518276}
+  skeletondeath: {fileID: 0}
+  humandeath: {fileID: 0}
+  evadeclip: {fileID: 0}
   isMenu: 1
   isGame: 0
   menuMusic: {fileID: 0}
+  mastervol: 0
+  musicvol: 0
+  soundfxvol: 0
 --- !u!1 &640170178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,7 +2730,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 705676144}
-        m_MethodName: AbrirJogo
+        m_MethodName: SelectMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
